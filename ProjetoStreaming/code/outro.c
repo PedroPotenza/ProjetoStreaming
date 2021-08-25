@@ -1,0 +1,1 @@
+// outros tipos de funções
