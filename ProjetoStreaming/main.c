@@ -5,6 +5,20 @@
 
 // comando para compilar: gcc main.c code/*.c -o main
 
+/*anotações
+
+ - não tem como ficar verificando se um cliente ja foi cadastrado ou não, pensei em colocar o CPF como algo para verificar
+ isso alem do id autoincrementado, ai a ordem de leitura/processamento dos dados seria: 
+ CPF (verifica se ja ta cadastrado)-> ID (autoincrementa) -> NOME -> EMAIL -> TELEFONE -> STATUS
+
+ ai no filme não precisa fazer verificação nenhuma não, uma verificação dessas eu ja acho bom para avaliar se eles sabem
+ fazer isso, pq se n verificar a existencia eh muito facil (só ver se o valor informado ta entre 1001 até 1001 + contador)
+
+ ou talvez tirar o autoincremento do cliente, deixar apenas o CPF e usar o autoincremento no cod do filme 
+
+
+*/
+
 int main(void){
 
     //CONSTANTES
@@ -50,7 +64,9 @@ int main(void){
         switch(opcao){
 
             case 1:{
-                
+                //cadastrado com sucesso
+                //cliente ja cadastrado
+                //numero maximo de clientes atingido
                 break;
             }
 
