@@ -16,8 +16,9 @@ typedef struct DATA{
 
 typedef struct CLIENTE{
 
-    int codigo; // codigo do cliente
+    int cpf[15]; // codigo do cliente // chave de busca
     char nome[50];
+    char email[50];
     char telefone[15];
     STATUS estado; 
 

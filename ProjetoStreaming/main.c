@@ -28,7 +28,7 @@ int main(void){
 
     //CONTADORES
     int c_cliente=0, c_filme=0, c_contratos=0;
-    int c_filme_cliente=0; //contador de quantos filmes aquele (index) cliente viu 
+    int c_filme_cliente[max_cliente]; //contador de quantos filmes aquele (index) cliente viu 
 
     //VETORES E MATRIZ
     CLIENTE vet_cliente[max_cliente];
@@ -39,6 +39,8 @@ int main(void){
     PLANO_BASICO plano_basico;
     PLANO_PREMIUM plano_premium;
 
+    //DIVERSAS
+    int x;
     int opcao=99;//inicializa com 99 só pra n dar problema do lixo de memoria ser 0
 
 	printf("--------------- MENU --------------- \n");
@@ -64,9 +66,12 @@ int main(void){
         switch(opcao){
 
             case 1:{
-                //cadastrado com sucesso
-                //cliente ja cadastrado
-                //numero maximo de clientes atingido
+                x = cadastroCliente(vet_cliente, &c_cliente, max_cliente, c_filme_cliente);
+                if(x==1){
+                    printf("ERRO: Numero maximo de clientes no sistema atingido");
+                } else {
+                    printf("Cadastrado com sucesso");
+                }
                 break;
             }
 
@@ -137,6 +142,9 @@ int main(void){
             }
 
             case 0:{
+                printf("c_cliente: %d\n", c_cliente);
+                printf("c_filme_cliente: %d\n", c_cliente);
+
                 printf("Finalizando programa...");
                 break;
             }
