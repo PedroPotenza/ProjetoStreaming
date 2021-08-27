@@ -1,5 +1,6 @@
 #include "header/tipos.h"
 #include "header/prototipos.h"
+#include "code/cadastrar.c"
 
 #include <stdio.h>
 
@@ -22,7 +23,7 @@
 int main(void){
 
     //CONSTANTES
-    const int max_cliente = 10;
+    const int max_cliente = 2;
     const int max_filme = 10;
     const int max_contratos = 10;
 
@@ -61,6 +62,7 @@ int main(void){
 	printf("---------------------------------- \n");
 
     do{
+        printf("\nOpcao do Menu: ");
         scanf("%d", &opcao);
 
         switch(opcao){
@@ -68,9 +70,9 @@ int main(void){
             case 1:{
                 x = cadastroCliente(vet_cliente, &c_cliente, max_cliente, c_filme_cliente);
                 if(x==1){
-                    printf("ERRO: Numero maximo de clientes no sistema atingido");
+                    printf("ERRO: Numero maximo de clientes no sistema atingido\n");
                 } else {
-                    printf("Cadastrado com sucesso");
+                    printf("Cadastrado com sucesso\n");
                 }
                 break;
             }
@@ -143,7 +145,7 @@ int main(void){
 
             case 0:{
                 printf("c_cliente: %d\n", c_cliente);
-                printf("c_filme_cliente: %d\n", c_cliente);
+                printf("c_filme_cliente: %d\n", c_filme_cliente[0]);
 
                 printf("Finalizando programa...");
                 break;
