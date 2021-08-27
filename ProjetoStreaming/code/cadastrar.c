@@ -44,3 +44,50 @@ int cadastroCliente(CLIENTE* vet_cliente, int* c_cliente, int max_cliente, int* 
     }
 
 }
+
+int cadastroFilme(FILME* vet_filme, int* c_filme, int max_filme){
+
+    int genero_local, classificacao_local;
+
+    if((*c_filme)==max_filme){
+        return 1; //numero maximo de filmes atingido
+    } else {
+        vet_filme[(*c_filme)].codigo = 1001 + (*c_filme);
+        printf("\nCodigo do Filme: %d\n", vet_filme[(*c_filme)].codigo);
+        printf("Nome: ");
+        scanf(" %[^\n]%*c", vet_filme[(*c_filme)].nome);
+
+        do{
+            printf("Genero: ");
+            scanf(" %d", &genero_local);
+                if(genero_local > 6 || genero_local<0){
+                    printf("ERRO: Genero invalido\n");
+                } else { 
+                    break;
+                }
+        }while(1);
+
+        vet_filme[*c_filme].genero = genero_local;
+
+        do{
+        printf("Classificacao: ");
+        scanf(" %d", &classificacao_local);
+            if(classificacao_local == 0 ||
+                classificacao_local == 10 ||
+                classificacao_local == 12 ||
+                classificacao_local == 14 ||
+                classificacao_local == 16 ||
+                classificacao_local == 18) //eh 5h da manha e eu n consigo pensar em um jeito emlhor
+                {
+                    vet_filme[*c_filme].classificacao = classificacao_local;
+                    break;
+                } else {
+                    printf("ERRO: Classificao invalida\n");
+                }  
+        }while(1);
+
+        (*c_filme)++;
+        return 0;
+    }
+
+}

@@ -58,7 +58,7 @@ int main(void){
 	printf("   11 - Listar clientes que excederam a cota mensal\n");  
 	printf("   12 - Frequencia de um dado filme\n");  
 	printf("   13 - Recomendar filme\n");   
-	printf("   0 - Sair\n"); 
+	printf("    0 - Sair\n"); 
 	printf("---------------------------------- \n");
 
     do{
@@ -72,29 +72,38 @@ int main(void){
                 if(x==1){
                     printf("ERRO: Numero maximo de clientes no sistema atingido\n");
                 } else {
-                    printf("Cadastrado com sucesso\n");
+                    printf("Cliente cadastrado com sucesso\n");
                 }
                 break;
             }
 
             case 2:{
-
+                x = cadastroFilme(vet_filme, &c_filme, max_filme);
+                if(x==1){
+                    printf("ERRO: Numero maximo de filmes no sistema atingido\n");
+                } else { 
+                    printf("Filme cadastrado com sucesso\n");
+                }
                 break;
 
             }
 
             case 3:{
-
+                //Plano basico cadastrado com sucesso
                 break;
             }
 
             case 4:{
-
+                //Plano premium cadastrado com sucesso
                 break;
             }
 
             case 5:{
+                //Nenhum cliente cadastrado no sistema
+                    //Cliente ja possui um contrato
+                //Contrato cadastrado com sucesso
 
+                //obs: Cada cliente so pode ter apenas um contrato, isso n ta especificado no enunciado
                 break;
             }
 
@@ -145,6 +154,7 @@ int main(void){
 
             case 0:{
                 printf("c_cliente: %d\n", c_cliente);
+                printf("c_filme: %d\n", c_filme);
                 printf("c_filme_cliente: %d\n", c_filme_cliente[0]);
 
                 printf("Finalizando programa...");
