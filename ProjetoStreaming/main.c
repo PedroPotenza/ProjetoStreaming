@@ -1,6 +1,8 @@
 #include "header/tipos.h"
 #include "header/prototipos.h"
 #include "code/cadastrar.c"
+#include "code/listar.c"
+
 
 #include <stdio.h>
 
@@ -129,7 +131,7 @@ int main(void){
             }
 
             case 9:{
-
+                imprimeCliente(vet_cliente, c_cliente);
                 break;
             }
 

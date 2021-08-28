@@ -8,4 +8,7 @@ int cadastroFilme(FILME* vet_filme, int* c_filme, int max_filme);
 int cadastroPlanoBasicao(PLANO_BASICO plano_basico);
 int cadastroPlanoPremium(PLANO_PREMIUM plano_premium);
 
+void imprimeCliente(CLIENTE* vet_cliente, int c_cliente);
+
+
 #endif
