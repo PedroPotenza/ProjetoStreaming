@@ -89,12 +89,18 @@ int main(void){
             }
 
             case 3:{
-                //Plano basico cadastrado com sucesso
+                x = cadastroPlanoBasicao(plano_basico);
+                if(x==0){
+                    printf("Plano Basico cadastrado com sucesso");
+                }
                 break;
             }
 
             case 4:{
-                //Plano premium cadastrado com sucesso
+                x = cadastroPlanoPremium(plano_premium);
+                if(x==0){
+                    printf("Plano Premium cadastrado com sucesso");
+                }
                 break;
             }
 
