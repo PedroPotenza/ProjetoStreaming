@@ -17,7 +17,7 @@ typedef enum GENERO{
 
 typedef enum CLASSIFICACAO{
 
-    livre=0, proibido_10=10, proibido_12=12, proibido_14=14, proibido_16=16, proibido_18=18
+    livre=0, proibido_10, proibido_12, proibido_14, proibido_16, proibido_18
 
 } CLASSIFICACAO;
 

@@ -1,8 +1,5 @@
 #include "header/tipos.h"
 #include "header/prototipos.h"
-#include "code/cadastrar.c"
-#include "code/listar.c"
-
 
 #include <stdio.h>
 
@@ -91,7 +88,7 @@ int main(void){
             }
 
             case 3:{
-                x = cadastroPlanoBasicao(plano_basico);
+                x = cadastroPlanoBasicao(&plano_basico);
                 if(x==0){
                     printf("Plano Basico cadastrado com sucesso");
                 }
@@ -99,7 +96,7 @@ int main(void){
             }
 
             case 4:{
-                x = cadastroPlanoPremium(plano_premium);
+                x = cadastroPlanoPremium(&plano_premium);
                 if(x==0){
                     printf("Plano Premium cadastrado com sucesso");
                 }
