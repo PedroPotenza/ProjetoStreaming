@@ -64,12 +64,12 @@ typedef struct CREDITO{
 
 // UNIONS -------------------------------------------------
 
-typedef union PLANO{
+// typedef union PLANO{
 
-    PLANO_BASICO basico;
-    PLANO_PREMIUM premium;
+//     PLANO_BASICO basico;
+//     PLANO_PREMIUM premium;
 
-} PLANO;
+// } PLANO;
 
 typedef union PAGAMENTO{
 

@@ -102,24 +102,17 @@ int cadastroContrato(CONTRATO* vet_contrato, int* c_contratos, int max_contratos
 
                 printf("Tipo de plano: ");
                 vet_contrato[(*c_contratos)].plano_tipo = validaEscopo(0,1,"ERRO: Tipo de plano invalido\n");
-                
 
                 // removi o campo plano, pois só existe um plano, basico ou premium
-                
-                // printf("Plano: ");
-                // if(vet_contrato[(*c_contratos)].plano_tipo == basico){
-                //     scanf("%d",&vet_contrato[(*c_contratos)].plano.basico.quantidade_de_filmes);
-                //     scanf("%f",&vet_contrato[(*c_contratos)].plano.basico.valor_base);
-                //     scanf("%f",&vet_contrato[(*c_contratos)].plano.basico.valor_excedente);
-                // }else{
-                //     scanf("%f",&vet_contrato[(*c_contratos)].plano.premium.valor_base);
-                // }
 
                 printf("Tipo de pagamento: ");
                 vet_contrato[(*c_contratos)].pagamento_tipo = validaEscopo(0,1,"ERRO: Tipo de pagamento invalido\n");
                 
                 printf("Pagamento: ");
                 if(vet_contrato[(*c_contratos)].pagamento_tipo == debito){
+
+                    // mano, to com preguiça de ficar colocando printf, mas é isso
+
                     scanf("%d",&vet_contrato[(*c_contratos)].pagamento.debito.agencia);
                     scanf("%d",&vet_contrato[(*c_contratos)].pagamento.debito.conta);
                 }else{
@@ -133,7 +126,13 @@ int cadastroContrato(CONTRATO* vet_contrato, int* c_contratos, int max_contratos
                 vet_contrato[(*c_contratos)].data_de_contratacao.dia = validaEscopo(1,31,"ERRO: Dia invalido\n");
 
                 printf("Mes: ");
-                vet_contrato[(*c_contratos)].data_de_contratacao.dia = validaEscopo(1,12,"ERRO: Mes invalido\n");
+                vet_contrato[(*c_contratos)].data_de_contratacao.mes = validaEscopo(1,12,"ERRO: Mes invalido\n");
+
+                int posicao_cliente = verificaCliente(cpf,vet_cliente,c_cliente);
+                posicao_cliente--;
+
+                vet_cliente[posicao_cliente].estado = ativo;
+
 
                  (*c_contratos)++;
 
@@ -151,7 +150,104 @@ int cadastroContrato(CONTRATO* vet_contrato, int* c_contratos, int max_contratos
 
 }
 
+int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], int* c_filme_cliente, CLIENTE* vet_cliente, int c_cliente, FILME* vet_filme, int c_filme, CONTRATO* vet_contrato, int c_contrato, PLANO_BASICO plano_basico){
 
+    int cpf, codigo, genero_ou_classificacao, escolha;
+    int posicao_cliente, posicao_contrato;
+
+    printf("\nCPF: ");
+    scanf("%d",&cpf);
+
+    posicao_cliente = verificaCliente(cpf, vet_cliente, c_cliente);
+
+    if(posicao_cliente){
+
+        posicao_cliente--;
+
+        if(vet_cliente[posicao_cliente].estado == ativo){
+
+            if(c_filme_cliente[posicao_cliente] == max_flime){
+
+                return 1; // caso o cliente tenha atingido a cota de filmes (30)
+            
+            }else{
+
+                printf("Dia: ");
+                mat_historico[posicao_cliente][c_filme_cliente[posicao_cliente]].data.dia = validaEscopo(1,31,"ERRO: Dia invalido\n");
+
+                printf("Mes: ");
+                mat_historico[posicao_cliente][c_filme_cliente[posicao_cliente]].data.mes = validaEscopo(1,12,"ERRO: Mes invalido\n");
+
+                // precisamos especificar no texto qual escolha leva pro genero e qual leva pra classificação, to usando 0/1
+                printf("Genero ou classificacao[0/1]: ");
+                genero_ou_classificacao = validaEscopo(0,1,"ERRO: Escolha invalida\n");
+                
+                // genero
+                if(genero_ou_classificacao == 0){
+
+                    if(!listaGenero(vet_filme,c_filme)) return -1;
+
+                // classificação
+                }else{
+
+                    if(!listaClassificacao(vet_filme,c_filme)) return -1;
+                }
+
+                printf("Codigo do filme: ");
+                scanf("%d",&codigo);
+
+                if(verificaFilme(codigo,vet_filme,c_filme)){
+
+                    mat_historico[posicao_cliente][c_filme_cliente[posicao_cliente]].codigo = codigo;
+
+                    posicao_contrato = verificaContrato(cpf,vet_contrato,c_contrato);
+                    
+                    if(!posicao_contrato){
+                       
+                        return 5; // cliente não possui contrato
+                    
+                    }
+
+                    posicao_contrato--;
+
+                    if(vet_contrato[posicao_contrato].plano_tipo == basico){
+
+                        if(c_filme_cliente[posicao_cliente] > plano_basico.quantidade_de_filmes){
+
+                            printf("Deseja assistir pagando o valor extra [0/1]: ");
+                            escolha = validaEscopo(0,1,"ERRO: Escolha invalida\n");
+
+                            if(escolha == 0){
+                                
+                                return 6; // filme não carregado;
+
+                            }
+
+                        }
+
+                    }
+
+                    c_filme_cliente[posicao_cliente]++;
+                                
+                    return 0;
+
+                }else{
+                    return 4; // filme não encontrado;
+                }
+            }   
+
+        }else{
+
+            return 3; // cliente não esta ativo;
+
+        }
+
+    }else{
+
+        return 2; // caso o cliente não exista;
+    }
+
+}
 
 
 

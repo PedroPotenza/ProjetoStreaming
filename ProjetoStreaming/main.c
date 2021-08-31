@@ -19,6 +19,8 @@
 
 */
 
+// depois precisamos mudar o texto do readme, por exemplo trocar o codigo do cliente por cpf do cliente
+
 int main(void){
 
     //CONSTANTES
@@ -28,7 +30,8 @@ int main(void){
 
     //CONTADORES
     int c_cliente=0, c_filme=0, c_contratos=0;
-    int c_filme_cliente[max_cliente]; //contador de quantos filmes aquele (index) cliente viu 
+    // troquei pra 10 pq se n n deixa inicializar com {0}
+    int c_filme_cliente[10] = {0}; //contador de quantos filmes aquele (index) cliente viu 
 
     //VETORES E MATRIZ
     CLIENTE vet_cliente[max_cliente];
@@ -129,6 +132,30 @@ int main(void){
             }
 
             case 6:{
+                
+                x = carregaFilme(max_cliente,3*max_filme,mat_historico,c_filme_cliente,vet_cliente,c_cliente,vet_filme,c_filme,vet_contrato,c_contratos,plano_basico);
+                switch(x){
+
+                    case 0:
+                        printf("Filme carregado com sucesso\n");
+                        break;
+                    case 1:
+                        printf("ERRO: Numero maximo de filmes no sistema atingido\n");
+                        break;
+                    case 2:
+                        printf("ERRO: Cliente nao cadastrado\n");
+                        break;
+                    case 3:
+                        printf("ERRO: Cliente nao ativo\n");
+                        break;
+                    case 4:
+                        printf("ERRO: Filme nao encontrado\n");
+                        break;
+                    // não sei se vale a pena implementar o case 5
+                    case 5:
+                        printf("ERRO: cliente nao possui contrato\n");
+                        break;
+                }
 
                 break;
             }

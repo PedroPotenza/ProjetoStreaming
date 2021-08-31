@@ -9,7 +9,7 @@ int verificaCliente(int cpf_local, CLIENTE* vet_cliente, int c_cliente){
 
     for(i=0; i<c_cliente; i++){
         if(cpf_local == vet_cliente[i].cpf){
-            return 1; //se existir retorna true 
+            return i+1; //se existir retorna true 
         }
     }
 
@@ -22,7 +22,20 @@ int verificaContrato(int cpf_local, CONTRATO* vet_contrato, int c_contrato){
 
     for(i=0; i<c_contrato; i++){
         if(cpf_local == vet_contrato[i].cpf){
-            return 1; //se existir retorna true 
+            return i+1; //se existir retorna true 
+        }
+    }
+
+    return 0; //se n existir retorna false
+}
+
+int verificaFilme(int codigo, FILME* vet_filme, int c_filme){
+
+    int i;
+
+    for(i=0; i<c_filme; i++){
+        if(codigo == vet_filme[i].codigo){
+            return i+1; //se existir retorna true 
         }
     }
 
