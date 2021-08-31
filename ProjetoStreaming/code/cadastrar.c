@@ -83,7 +83,73 @@ int cadastroPlanoPremium(PLANO_PREMIUM* plano_premium){
     return 0;
 }
 
+int cadastroContrato(CONTRATO* vet_contrato, int* c_contratos, int max_contratos, CLIENTE* vet_cliente, int c_cliente){
 
+    if((*c_contratos)==max_contratos){
+        return 1; //numero maximo de filmes atingido
+    }else{
+
+        int cpf;
+
+        printf("\nCPF: ");
+        scanf("%d",&cpf);
+
+        if(verificaCliente(cpf, vet_cliente, c_cliente)){
+
+            if(!verificaContrato(cpf, vet_contrato, *c_contratos)){
+
+                vet_contrato[(*c_contratos)].cpf = cpf;
+
+                printf("Tipo de plano: ");
+                vet_contrato[(*c_contratos)].plano_tipo = validaEscopo(0,1,"ERRO: Tipo de plano invalido\n");
+                
+
+                // removi o campo plano, pois só existe um plano, basico ou premium
+                
+                // printf("Plano: ");
+                // if(vet_contrato[(*c_contratos)].plano_tipo == basico){
+                //     scanf("%d",&vet_contrato[(*c_contratos)].plano.basico.quantidade_de_filmes);
+                //     scanf("%f",&vet_contrato[(*c_contratos)].plano.basico.valor_base);
+                //     scanf("%f",&vet_contrato[(*c_contratos)].plano.basico.valor_excedente);
+                // }else{
+                //     scanf("%f",&vet_contrato[(*c_contratos)].plano.premium.valor_base);
+                // }
+
+                printf("Tipo de pagamento: ");
+                vet_contrato[(*c_contratos)].pagamento_tipo = validaEscopo(0,1,"ERRO: Tipo de pagamento invalido\n");
+                
+                printf("Pagamento: ");
+                if(vet_contrato[(*c_contratos)].pagamento_tipo == debito){
+                    scanf("%d",&vet_contrato[(*c_contratos)].pagamento.debito.agencia);
+                    scanf("%d",&vet_contrato[(*c_contratos)].pagamento.debito.conta);
+                }else{
+                    scanf("%d",&vet_contrato[(*c_contratos)].pagamento.credito.numero_do_cartao);
+                }
+
+                vet_contrato[(*c_contratos)].data_de_cancelamento.dia = 0;
+                vet_contrato[(*c_contratos)].data_de_cancelamento.mes = 0;
+
+                printf("Dia: ");
+                vet_contrato[(*c_contratos)].data_de_contratacao.dia = validaEscopo(1,31,"ERRO: Dia invalido\n");
+
+                printf("Mes: ");
+                vet_contrato[(*c_contratos)].data_de_contratacao.dia = validaEscopo(1,12,"ERRO: Mes invalido\n");
+
+                 (*c_contratos)++;
+
+                return 0;
+
+            }else{
+                return 3; // contrato já existente
+            }
+            
+        }else{
+            return 2; // cliente não cadastrado
+        }
+
+    }
+
+}
 
 
 

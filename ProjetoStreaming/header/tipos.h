@@ -31,7 +31,6 @@ typedef struct FILME{
     GENERO genero;
     CLASSIFICACAO classificacao;
 
-
 } FILME;
 
 typedef struct PLANO_BASICO{
@@ -85,8 +84,7 @@ typedef union PAGAMENTO{
 
 typedef struct CONTRATO{
 
-    int codigo; // codigo do cliente
-    PLANO plano;
+    int cpf; // codigo do cliente
     PLANO_TIPO plano_tipo;
     DATA data_de_contratacao;
     DATA data_de_cancelamento;

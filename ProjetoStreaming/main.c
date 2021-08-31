@@ -104,6 +104,22 @@ int main(void){
             }
 
             case 5:{
+                x = cadastroContrato(vet_contrato,&c_contratos,max_contratos,vet_cliente,c_cliente);
+                switch(x){
+
+                    case 0:
+                        printf("Contrato cadastrado com sucesso");
+                        break;
+                    case 1:
+                        printf("ERRO: Numero maximo de contratos no sistema atingido\n");
+                        break;
+                    case 2:
+                        printf("ERRO: Cliente nao cadastrado\n");
+                        break;
+                    case 3:
+                        printf("ERRO: Cliente com contrato existente\n");
+                        break;
+                }
                 //Nenhum cliente cadastrado no sistema
                     //Cliente ja possui um contrato
                 //Contrato cadastrado com sucesso

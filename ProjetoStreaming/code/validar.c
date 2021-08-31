@@ -16,6 +16,19 @@ int verificaCliente(int cpf_local, CLIENTE* vet_cliente, int c_cliente){
     return 0; //se n existir retorna false
 }
 
+int verificaContrato(int cpf_local, CONTRATO* vet_contrato, int c_contrato){
+
+    int i;
+
+    for(i=0; i<c_contrato; i++){
+        if(cpf_local == vet_contrato[i].cpf){
+            return 1; //se existir retorna true 
+        }
+    }
+
+    return 0; //se n existir retorna false
+}
+
 int validaCpf(CLIENTE* vet_cliente, int c_cliente, char erro[]){
 
     int cpf;
