@@ -6,12 +6,10 @@
 #include <stdio.h>
 #include <string.h>
 
+// estou passando escolha como parametro agora
+int listaGenero(FILME* vet_filme, int c_filme, int escolha){
 
-int listaGenero(FILME* vet_filme, int c_filme){
-
-    int escolha, valida = 0;
-
-    escolha = validaEscopo(0,5, "ERRO: Genero invalido\n");
+    int valida = 0;
 
     for(int c=0; c<c_filme;c++){
 
@@ -35,11 +33,10 @@ int listaGenero(FILME* vet_filme, int c_filme){
     return 1;
 }
 
-int listaClassificacao(FILME* vet_filme, int c_filme){
+// estou passando escolha como parametro agora
+int listaClassificacao(FILME* vet_filme, int c_filme, int escolha){
 
-    int escolha, valida = 0;
-
-    escolha = validaEscopo(0,5, "ERRO: Classificacao invalida\n");
+    int valida = 0;
 
     for(int c=0; c<c_filme;c++){
 
@@ -99,3 +96,52 @@ void imprimeCliente(CLIENTE* vet_cliente, int c_cliente){
 
     }while(existe!=1);
 }
+
+int imprimeHistorico(int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], int* c_filme_cliente, CLIENTE* vet_cliente, int c_cliente, FILME* vet_filme, int c_filme){
+
+    int cpf;
+
+    printf("\nCPF: ");
+    scanf("%d",&cpf);
+
+    int posicao_cliente = verificaCliente(cpf, vet_cliente, c_cliente);
+
+    if (posicao_cliente == 0)
+            return 1; //printf("ERRO: Cliente nao cadastrado\n");
+
+    posicao_cliente--;
+
+    if(vet_cliente[posicao_cliente].estado == ativo){
+        printf("Estado: Ativo\n");
+    }else{
+        printf("Estado: Inativo\n");
+    }
+
+    int posicao_filme;
+
+    if(c_filme_cliente[posicao_cliente] == 0){
+        return 2; //printf("ERRO: Nenhum filme assistido\n"); 
+    }
+
+
+    // printa os filmes que ele assistiu
+    for(int c=0;c<c_filme_cliente[posicao_cliente];c++){
+        
+        posicao_filme = verificaFilme(mat_historico[posicao_cliente][c].codigo,vet_filme,c_filme);
+        posicao_filme--;
+        printf("Codigo: %d\n",vet_filme[posicao_filme].codigo);
+        printf("Nome: %s\n",vet_filme[posicao_filme].nome);
+        
+        // isso aqui provavelmente pode remover depois
+        printf("Genero: %s\n", retornaGenero(vet_filme[posicao_filme].genero));
+        printf("Classificacao: %s\n", retornaClassificacao(vet_filme[posicao_filme].genero));
+        //
+
+        printf("Data do carregamento: %d/%d",mat_historico[posicao_cliente][c].data.dia, mat_historico[posicao_cliente][c].data.mes);
+
+    }
+    
+    return 0;
+
+}
+

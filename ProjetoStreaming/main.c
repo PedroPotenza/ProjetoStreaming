@@ -149,7 +149,6 @@ int main(void){
                     case 4:
                         printf("ERRO: Filme nao encontrado\n");
                         break;
-                    // não sei se vale a pena implementar o case 5
                     case 5:
                         printf("ERRO: Cliente nao possui contrato\n");
                         break;
@@ -187,7 +186,20 @@ int main(void){
             }
 
             case 10:{
+                
+                x = imprimeHistorico(max_cliente,3*max_filme,mat_historico,c_filme_cliente,vet_cliente,c_cliente,vet_filme,c_filme);
+                
+                switch(x){
 
+                    case 1:
+                        printf("ERRO: Cliente nao cadastrado\n");
+                        break;
+                    case 2:
+                        printf("ERRO: Nenhum filme assistido\n");
+                        break;
+
+                }
+                
                 break;
             }
 

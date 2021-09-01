@@ -6,6 +6,66 @@
 #include <stdio.h>
 #include <string.h>
 
+// retorna o nome do genero com o valor do enum
+
+char* retornaGenero(GENERO genero){
+
+    switch(genero){
+        case 0:
+            return "aventura";
+            break;
+        case 1:
+            return "comedia";
+            break;
+        case 2:
+            return "drama";
+            break;
+        case 3:
+            return "terror";
+            break;
+        case 4:
+            return "acao";
+            break;
+        case 5:
+            return "romance";
+            break;
+
+    }
+    
+    return "";
+
+}
+
+// retorna o nome da classificação com o valor do enum
+
+char* retornaClassificacao(CLASSIFICACAO classificacao){
+
+    switch(classificacao){
+        case 0:
+            return "livre";
+            break;
+        case 1:
+            return "+10";
+            break;
+        case 2:
+            return "+12";
+            break;
+        case 3:
+            return "+14";
+            break;
+        case 4:
+            return "+16";
+            break;
+        case 5:
+            return "+18";
+            break;
+
+    }
+    
+    return "";
+
+}
+
 int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], int *c_filme_cliente, CLIENTE *vet_cliente, int c_cliente, FILME *vet_filme, int c_filme, CONTRATO *vet_contrato, int c_contrato, PLANO_BASICO plano_basico, int mes_atual)
 {
 
@@ -44,19 +104,23 @@ int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cli
                 printf("Genero ou classificacao[0/1]: ");
                 genero_ou_classificacao = validaEscopo(0, 1, "ERRO: Escolha invalida\n");
 
+                printf("Escolha:");
+
+                escolha = validaEscopo(0, 5, "ERRO: Escolha invalida\n");
+
                 // genero
                 if (genero_ou_classificacao == 0)
                 {
-
-                    if (!listaGenero(vet_filme, c_filme))
+                    // estou passando escolha como parametro agora
+                    if (!listaGenero(vet_filme, c_filme, escolha))
                         return -1;
 
                     // classificação
                 }
                 else
                 {
-
-                    if (!listaClassificacao(vet_filme, c_filme))
+                    // estou passando escolha como parametro agora
+                    if (!listaClassificacao(vet_filme, c_filme, escolha))
                         return -1;
                 }
 
@@ -156,7 +220,7 @@ int cancelarContrato(CONTRATO* vet_contrato, int c_contratos, CLIENTE* vet_clien
                 //
                 //
 
-                vet_cliente[x-1].estado = 0; 
+                vet_cliente[x-1].estado = inativo; 
 
                 return 0;
             }
