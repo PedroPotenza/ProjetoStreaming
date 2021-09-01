@@ -151,7 +151,7 @@ int main(void){
                         break;
                     // não sei se vale a pena implementar o case 5
                     case 5:
-                        printf("ERRO: cliente nao possui contrato\n");
+                        printf("ERRO: Cliente nao possui contrato\n");
                         break;
                 }
 
@@ -159,6 +159,19 @@ int main(void){
             }
 
             case 7:{
+
+                x = cancelarContrato(vet_contrato, c_contratos, vet_cliente, c_cliente, mes_atual);
+                switch(x){
+
+                    case 0: 
+                        printf("Cancelamento feito com sucesso");
+                        break;
+                    case 2: 
+                        printf("ERRO: Nenhum contrato cadastrado no sistema");
+                        break;
+                    case 3: 
+                        printf("ERRO: Cliente inativo");
+                }
 
                 break;
             }
