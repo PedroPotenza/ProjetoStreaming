@@ -61,25 +61,26 @@ int cadastroFilme(FILME* vet_filme, int* c_filme, int max_filme){
     }
 
 }
-
-int cadastroPlanoBasicao(PLANO_BASICO plano_basico){
+// alterei dnv, desculpa asuhdsahudahu
+// os valores não estavam sendo registrados, então troquei pra ponteiro, agora vai
+int cadastroPlanoBasicao(PLANO_BASICO* plano_basico){
 
     printf("\nQuantos filmes o usuario pode assistir? ");
-    scanf("%d", &plano_basico.quantidade_de_filmes);
+    scanf("%d", &plano_basico->quantidade_de_filmes);
 
     printf("Valor Base: ");
-    scanf("%f", &plano_basico.valor_base);
+    scanf("%f", &plano_basico->valor_base);
 
     printf("Valor Excedente: ");
-    scanf("%f", &plano_basico.valor_excedente);
+    scanf("%f", &plano_basico->valor_excedente);
 
     return 0;
 }
-
-int cadastroPlanoPremium(PLANO_PREMIUM plano_premium){
+// mesma coisa aqui
+int cadastroPlanoPremium(PLANO_PREMIUM* plano_premium){
 
     printf("\nValor Base: ");
-    scanf("%f", &plano_premium.valor_base);
+    scanf("%f", &plano_premium->valor_base);
     return 0;
 }
 

@@ -145,7 +145,8 @@ int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cli
                     if (vet_contrato[posicao_contrato].plano_tipo == basico)
                     {
 
-                        if (c_filme_cliente[posicao_cliente] > plano_basico.quantidade_de_filmes)
+                        // corrigi, pois estava valendo um filme à mais, troquei > por >=
+                        if (c_filme_cliente[posicao_cliente] >= plano_basico.quantidade_de_filmes)
                         {
 
                             printf("Deseja assistir pagando o valor extra [0/1]: ");

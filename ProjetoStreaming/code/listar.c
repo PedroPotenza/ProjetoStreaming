@@ -137,7 +137,7 @@ int imprimeHistorico(int max_cliente, int max_flime, HISTORICO mat_historico[max
         printf("Classificacao: %s\n", retornaClassificacao(vet_filme[posicao_filme].genero));
         //
 
-        printf("Data do carregamento: %d/%d",mat_historico[posicao_cliente][c].data.dia, mat_historico[posicao_cliente][c].data.mes);
+        printf("Data do carregamento: %d/%d\n\n",mat_historico[posicao_cliente][c].data.dia, mat_historico[posicao_cliente][c].data.mes);
 
     }
     
@@ -145,3 +145,39 @@ int imprimeHistorico(int max_cliente, int max_flime, HISTORICO mat_historico[max
 
 }
 
+void imprimeClienteExcedente(CLIENTE* vet_cliente, int c_cliente, FILME* vet_filme, int c_filme, CONTRATO* vet_contrato, int c_contrato, int* c_filme_cliente, PLANO_BASICO plano_basico){
+
+    int clientes_excedentes=0;
+
+    for(int c=0;c<c_contrato;c++){
+
+        if(vet_contrato[c].plano_tipo == basico){
+
+            int posicao_cliente = verificaCliente(vet_contrato[c].cpf,vet_cliente,c_cliente);
+            posicao_cliente--;
+
+            if(vet_cliente[posicao_cliente].estado == ativo){
+                
+                if(c_filme_cliente[posicao_cliente] > plano_basico.quantidade_de_filmes){
+
+                    clientes_excedentes = 1;
+                    printf("CPF: %d\n",vet_cliente[posicao_cliente].cpf);
+                    printf("Nome: %s\n",vet_cliente[posicao_cliente].nome);
+                    //printf("%.2f || %d\n",plano_basico.valor_excedente,(c_filme_cliente[posicao_cliente] - plano_basico.quantidade_de_filmes));
+                    float excesso = (plano_basico.valor_excedente)*(c_filme_cliente[posicao_cliente] - plano_basico.quantidade_de_filmes);
+                    printf("Valor excedente: %.2f\n\n",excesso);
+
+                }
+            }
+
+        }
+
+    }
+
+    if(!clientes_excedentes){
+
+        printf("ERRO: Nenhum cliente excedente\n");
+
+    }
+
+}

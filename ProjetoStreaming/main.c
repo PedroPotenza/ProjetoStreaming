@@ -98,18 +98,20 @@ int main(void){
             }
 
             case 3:{
-                x = cadastroPlanoBasicao(plano_basico);
+                x = cadastroPlanoBasicao(&plano_basico);
                 if(x==0){
                     printf("Plano Basico cadastrado com sucesso\n");
                 }
+                //printf("%f",plano_basico.valor_excedente);
                 break;
             }
 
             case 4:{
-                x = cadastroPlanoPremium(plano_premium);
+                x = cadastroPlanoPremium(&plano_premium);
                 if(x==0){
                     printf("Plano Premium cadastrado com sucesso\n");
                 }
+                //printf("%f",plano_premium.valor_base);
                 break;
             }
 
@@ -186,7 +188,7 @@ int main(void){
             }
 
             case 10:{
-                
+
                 x = imprimeHistorico(max_cliente,3*max_filme,mat_historico,c_filme_cliente,vet_cliente,c_cliente,vet_filme,c_filme);
                 
                 switch(x){
@@ -204,7 +206,7 @@ int main(void){
             }
 
             case 11:{
-
+                imprimeClienteExcedente(vet_cliente,c_cliente,vet_filme,c_filme,vet_contrato,c_contratos,c_filme_cliente,plano_basico);
                 break;
             }
 
