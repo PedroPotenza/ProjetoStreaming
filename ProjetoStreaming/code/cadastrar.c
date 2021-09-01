@@ -26,7 +26,7 @@ int cadastroCliente(CLIENTE* vet_cliente, int* c_cliente, int max_cliente, int* 
         printf("Telefone: ");
         scanf(" %[^\n]%*c", vet_cliente[(*c_cliente)].telefone);
 
-        vet_cliente[(*c_cliente)].estado = ativo;
+        vet_cliente[(*c_cliente)].estado = inativo;
         c_filme_cliente[(*c_cliente)]=0; // cliente assistiu 0 filmes ao ser cadastrado
         (*c_cliente)++;
         return 0; //cadastrado com sucesso
@@ -62,89 +62,96 @@ int cadastroFilme(FILME* vet_filme, int* c_filme, int max_filme){
 
 }
 
-int cadastroPlanoBasicao(PLANO_BASICO* plano_basico){
+int cadastroPlanoBasicao(PLANO_BASICO plano_basico){
 
     printf("\nQuantos filmes o usuario pode assistir? ");
-    scanf("%d", plano_basico->quantidade_de_filmes);
+    scanf("%d", &plano_basico.quantidade_de_filmes);
 
     printf("Valor Base: ");
-    scanf("%f", plano_basico->valor_base);
+    scanf("%f", &plano_basico.valor_base);
 
     printf("Valor Excedente: ");
-    scanf("%f", plano_basico->valor_excedente);
+    scanf("%f", &plano_basico.valor_excedente);
 
     return 0;
 }
 
-int cadastroPlanoPremium(PLANO_PREMIUM* plano_premium){
+int cadastroPlanoPremium(PLANO_PREMIUM plano_premium){
 
     printf("\nValor Base: ");
-    scanf("%f", plano_premium->valor_base);
+    scanf("%f", &plano_premium.valor_base);
     return 0;
 }
 
-int cadastroContrato(CONTRATO* vet_contrato, int* c_contratos, int max_contratos, CLIENTE* vet_cliente, int c_cliente){
+int cadastroContrato(CONTRATO* vet_contrato, int* c_contratos, int max_contratos, CLIENTE* vet_cliente, int c_cliente, int mes_atual){
 
     if((*c_contratos)==max_contratos){
-        return 1; //numero maximo de filmes atingido
+        return 1; //numero maximo de contratos atingido
     }else{
+
+        if(existeCliente(vet_cliente, c_cliente))
+            return 2; //nenhum cliente cadastrado no sistema
 
         int cpf;
 
-        printf("\nCPF: ");
-        scanf("%d",&cpf);
+        do{            
+            printf("\nCPF: ");
+            scanf("%d",&cpf);
 
-        if(verificaCliente(cpf, vet_cliente, c_cliente)){
+            if(verificaCliente(cpf, vet_cliente, c_cliente)){
 
-            if(!verificaContrato(cpf, vet_contrato, *c_contratos)){
+                if(!verificaContrato(cpf, vet_contrato, *c_contratos)){
 
-                vet_contrato[(*c_contratos)].cpf = cpf;
+                    vet_contrato[(*c_contratos)].cpf = cpf;
 
-                printf("Tipo de plano: ");
-                vet_contrato[(*c_contratos)].plano_tipo = validaEscopo(0,1,"ERRO: Tipo de plano invalido\n");
+                    printf("Tipo de plano: ");
+                    vet_contrato[(*c_contratos)].plano_tipo = validaEscopo(0,1,"ERRO: Tipo de plano invalido\n");
 
-                // removi o campo plano, pois só existe um plano, basico ou premium
+                    // removi o campo plano, pois só existe um plano, basico ou premium
 
-                printf("Tipo de pagamento: ");
-                vet_contrato[(*c_contratos)].pagamento_tipo = validaEscopo(0,1,"ERRO: Tipo de pagamento invalido\n");
-                
-                printf("Pagamento: ");
-                if(vet_contrato[(*c_contratos)].pagamento_tipo == debito){
+                    printf("Tipo de pagamento: ");
+                    vet_contrato[(*c_contratos)].pagamento_tipo = validaEscopo(0,1,"ERRO: Tipo de pagamento invalido\n");
+                    
+                    if(vet_contrato[(*c_contratos)].pagamento_tipo == debito){
 
-                    // mano, to com preguiça de ficar colocando printf, mas é isso
+                        printf("Ag: ");
+                        scanf("%d",&vet_contrato[(*c_contratos)].pagamento.debito.agencia);
+                        printf("Conta: ");
+                        scanf("%d",&vet_contrato[(*c_contratos)].pagamento.debito.conta);
+                    }else{
+                        printf("Numero do Cartao: ");
+                        scanf("%d",&vet_contrato[(*c_contratos)].pagamento.credito.numero_do_cartao);
+                    }
 
-                    scanf("%d",&vet_contrato[(*c_contratos)].pagamento.debito.agencia);
-                    scanf("%d",&vet_contrato[(*c_contratos)].pagamento.debito.conta);
+                    vet_contrato[(*c_contratos)].data_de_cancelamento.dia = 0;
+                    vet_contrato[(*c_contratos)].data_de_cancelamento.mes = 0;
+
+                    printf("Dia: ");
+                    vet_contrato[(*c_contratos)].data_de_contratacao.dia = validaEscopo(1,31,"ERRO: Dia invalido\n");
+
+                    vet_contrato[(*c_contratos)].data_de_contratacao.mes = mes_atual;
+                    //validaEscopo(1,12,"ERRO: Mes invalido\n");
+
+                    int posicao_cliente = verificaCliente(cpf,vet_cliente,c_cliente);
+                    posicao_cliente--;
+
+                    vet_cliente[posicao_cliente].estado = ativo;
+
+
+                    (*c_contratos)++;
+
+                    return 0;
+
                 }else{
-                    scanf("%d",&vet_contrato[(*c_contratos)].pagamento.credito.numero_do_cartao);
+                    printf("ERRO: Cliente com contrato existente\n"); // contrato já existente
+                    //aqui ta criando um loop infinito caso TODOS os clientes cadastrados ja tiverem contratos;
                 }
-
-                vet_contrato[(*c_contratos)].data_de_cancelamento.dia = 0;
-                vet_contrato[(*c_contratos)].data_de_cancelamento.mes = 0;
-
-                printf("Dia: ");
-                vet_contrato[(*c_contratos)].data_de_contratacao.dia = validaEscopo(1,31,"ERRO: Dia invalido\n");
-
-                printf("Mes: ");
-                vet_contrato[(*c_contratos)].data_de_contratacao.mes = validaEscopo(1,12,"ERRO: Mes invalido\n");
-
-                int posicao_cliente = verificaCliente(cpf,vet_cliente,c_cliente);
-                posicao_cliente--;
-
-                vet_cliente[posicao_cliente].estado = ativo;
-
-
-                 (*c_contratos)++;
-
-                return 0;
-
+                
             }else{
-                return 3; // contrato já existente
+                printf("ERRO: Cliente nao cadastrado\n");
             }
-            
-        }else{
-            return 2; // cliente não cadastrado
-        }
+
+        }while(1);
 
     }
 

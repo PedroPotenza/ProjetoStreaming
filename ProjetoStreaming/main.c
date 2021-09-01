@@ -1,5 +1,9 @@
 #include "header/tipos.h"
 #include "header/prototipos.h"
+#include "code/cadastrar.c"
+#include "code/listar.c"
+#include "code/validar.c"
+#include "code/outro.c"
 
 #include <stdio.h>
 
@@ -41,6 +45,9 @@ int main(void){
 
     PLANO_BASICO plano_basico;
     PLANO_PREMIUM plano_premium;
+
+    //MES VIGENTE
+    int mes_atual=1;
 
     //DIVERSAS
     int x;
@@ -91,36 +98,33 @@ int main(void){
             }
 
             case 3:{
-                x = cadastroPlanoBasicao(&plano_basico);
+                x = cadastroPlanoBasicao(plano_basico);
                 if(x==0){
-                    printf("Plano Basico cadastrado com sucesso");
+                    printf("Plano Basico cadastrado com sucesso\n");
                 }
                 break;
             }
 
             case 4:{
-                x = cadastroPlanoPremium(&plano_premium);
+                x = cadastroPlanoPremium(plano_premium);
                 if(x==0){
-                    printf("Plano Premium cadastrado com sucesso");
+                    printf("Plano Premium cadastrado com sucesso\n");
                 }
                 break;
             }
 
             case 5:{
-                x = cadastroContrato(vet_contrato,&c_contratos,max_contratos,vet_cliente,c_cliente);
+                x = cadastroContrato(vet_contrato,&c_contratos,max_contratos,vet_cliente,c_cliente, mes_atual);
                 switch(x){
 
                     case 0:
-                        printf("Contrato cadastrado com sucesso");
+                        printf("Contrato cadastrado com sucesso\n");
                         break;
                     case 1:
                         printf("ERRO: Numero maximo de contratos no sistema atingido\n");
                         break;
-                    case 2:
-                        printf("ERRO: Cliente nao cadastrado\n");
-                        break;
-                    case 3:
-                        printf("ERRO: Cliente com contrato existente\n");
+                    case 2: 
+                        printf("ERRO: Nenhum cliente cadastrado no sistema");
                         break;
                 }
                 //Nenhum cliente cadastrado no sistema
@@ -133,7 +137,7 @@ int main(void){
 
             case 6:{
                 
-                x = carregaFilme(max_cliente,3*max_filme,mat_historico,c_filme_cliente,vet_cliente,c_cliente,vet_filme,c_filme,vet_contrato,c_contratos,plano_basico);
+                x = carregaFilme(max_cliente,3*max_filme,mat_historico,c_filme_cliente,vet_cliente,c_cliente,vet_filme,c_filme,vet_contrato,c_contratos,plano_basico, mes_atual);
                 switch(x){
 
                     case 0:
@@ -141,12 +145,6 @@ int main(void){
                         break;
                     case 1:
                         printf("ERRO: Numero maximo de filmes no sistema atingido\n");
-                        break;
-                    case 2:
-                        printf("ERRO: Cliente nao cadastrado\n");
-                        break;
-                    case 3:
-                        printf("ERRO: Cliente nao ativo\n");
                         break;
                     case 4:
                         printf("ERRO: Filme nao encontrado\n");

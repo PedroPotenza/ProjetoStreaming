@@ -67,7 +67,7 @@ void imprimeCliente(CLIENTE* vet_cliente, int c_cliente){
 
     int cpf_local, existe, i;
 
-    if(c_cliente==0){
+    if(existeCliente(vet_cliente, c_cliente)){
         printf("ERRO: Nenhum cliente cadastrado no sistema");
         return;
     }

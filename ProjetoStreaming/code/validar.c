@@ -56,7 +56,7 @@ int validaCpf(CLIENTE* vet_cliente, int c_cliente, char erro[]){
 
     }while(1);
 
-     return cpf;
+    return cpf;
 
 }
 
@@ -77,3 +77,16 @@ int validaEscopo(int min, int max, char erro[]){
     return valor;
 
 }
+
+/*
+verifica se existe algum cliente cadastrado no sistema
+usado no cadastrar contrato, listar cliente, etc ... 
+eh usado bastante pra evitar loop infinito de erro por causa dos do whiles
+*/
+int existeCliente(CLIENTE* vet_cliente, int c_cliente){
+
+    if(c_cliente==0){
+        return 1; //retorna 1 se n tiver nenhum cliente cadastrado
+    }
+    return 0; //retorna 0 se existir algum cliente
+} 
