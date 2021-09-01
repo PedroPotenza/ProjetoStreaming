@@ -156,7 +156,7 @@ int cancelarContrato(CONTRATO* vet_contrato, int c_contratos, CLIENTE* vet_clien
                 //
                 //
 
-                vet_cliente[x-1].estado = 0; //isso não funcionou
+                vet_cliente[x-1].estado = 0; 
 
                 return 0;
             }
