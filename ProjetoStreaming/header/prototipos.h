@@ -17,7 +17,7 @@ int cadastroPlanoPremium(PLANO_PREMIUM* plano_premium);
 int cadastroContrato(CONTRATO* vet_contrato, int* c_contratos, int max_contratos, CLIENTE* vet_cliente, int c_cliente, int mes_atual);
 
 int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], int* c_filme_cliente, CLIENTE* vet_cliente, int c_cliente, FILME* vet_filme, int c_filme, CONTRATO* vet_contrato, int c_contrato, PLANO_BASICO plano_basico, int mes_atual);
-int cancelarContrato(CONTRATO* vet_contrato, int c_contratos, CLIENTE* vet_cliente, int c_cliente, int mes_atual);
+int cancelarContrato(CONTRATO *vet_contrato, int c_contratos, CLIENTE *vet_cliente, int c_cliente, int mes_atual, PLANO_BASICO plano_basico, PLANO_PREMIUM plano_premium, int* c_filme_cliente)
 
 int listaGenero(FILME* vet_filme, int c_filme, int escolha);
 int listaClassificacao(FILME* vet_filme, int c_filme, int escolha);
