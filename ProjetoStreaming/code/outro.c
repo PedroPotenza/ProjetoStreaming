@@ -284,7 +284,7 @@ int frequenciaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_
 
         }
 
-        printf("Frequencia: %.2f",100.0*(contador/total));
+        printf("Frequencia: %.2f%%",100.0*(contador/total));
 
     }else{
 
@@ -292,6 +292,126 @@ int frequenciaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_
 
     }
 
+    return 0;
+
+}
+
+int recomendaFilme(CLIENTE* vet_cliente, int c_cliente,int max_cliente, int max_filme, HISTORICO mat_historico[max_cliente][max_filme], int *c_filme_cliente, FILME* vet_filme, int c_filme){
+
+    int cpf, contador_genero[6] = {0};
+
+    printf("\nCPF: ");
+    scanf("%d",&cpf);
+
+    int pos_cli = verificaCliente(cpf,vet_cliente,c_cliente);
+
+    if(pos_cli){
+
+        pos_cli--;
+
+        if(vet_cliente[pos_cli].estado == ativo){
+
+            for(int c=0;c<c_filme_cliente[pos_cli];c++){
+
+                //printf("%d ",mat_historico[pos_cli][c].codigo);
+
+                int pos_film = verificaFilme(mat_historico[pos_cli][c].codigo,vet_filme,c_filme);
+
+                if(pos_film){
+                    
+                    pos_film--;
+
+                    contador_genero[vet_filme[pos_film].genero]++;
+                    //printf("%d ",vet_filme[pos_film].genero);
+
+                }
+
+            }
+
+            int maior = contador_genero[0];
+            int empates[6] = {-1,-1,-1,-1,-1,-1}, contador_empates=0;
+
+            //printf("%d ",contador_genero[0]);
+
+            for(int c=1;c<6;c++){
+
+                if(contador_genero[c] > maior){
+                    maior = contador_genero[c];
+                }
+               //printf("%d ",contador_genero[c]);
+
+            }
+
+            if(maior == 0){
+
+                return 4; // Nenhum filme assistido;
+
+            }
+
+            for(int c=0;c<6;c++){
+
+                if(contador_genero[c] == maior){
+                    empates[contador_empates] = c;
+                    contador_empates++;
+                }
+
+            }
+
+            int contador_filmes = 0;
+
+            for(int c=0;c<6;c++){
+
+                //printf("empates: %d\n",empates[c]);
+
+                if(empates[c] != -1){
+
+                    for(int d=0;d<c_filme;d++){
+                        //printf("%d ",c_filme);
+
+                        if(vet_filme[d].genero == empates[c]){
+
+                            //printf("%d || %d ",vet_filme[d].genero, empates[c]);
+
+                            // clienteAssistiu verifica se um cliente assistiu um filme
+
+                            if(!clienteAssistiu(vet_cliente,c_cliente,cpf,vet_filme,c_filme,vet_filme[d].codigo,max_cliente,max_filme,mat_historico,c_filme_cliente)){
+
+                                contador_filmes++;
+                                printf("Codigo: %d\n",vet_filme[d].codigo);
+                                printf("Nome: %s\n",vet_filme[d].nome);
+                                
+                                // isso aqui provavelmente pode remover depois
+                                printf("Genero: %s\n", retornaGenero(vet_filme[d].genero));
+                                printf("Classificacao: %s\n", retornaClassificacao(vet_filme[d].genero));
+                                //
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            if(!contador_filmes){
+
+                return 3; // Não é possivel fazer a recomendação, cliente já assistiu todos os filmes do genero
+
+            }
+
+        }else{
+
+            return 2; // Cliente não ativo;
+
+        }
+
+    }else{
+
+        return 1; // Cliente não cadastrado;
+    
+    }
 
     return 0;
 }

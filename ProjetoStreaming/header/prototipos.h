@@ -10,6 +10,8 @@ int existeCliente(CLIENTE* vet_cliente, int c_cliente);
 int validaEscopo(int min, int max, char erro[]);
 int validaCpf( CLIENTE* vet_cliente, int c_cliente, char erro[]);
 
+int clienteAssistiu(CLIENTE* vet_cliente, int c_cliente, int cpf_local, FILME* vet_filme, int c_filme, int codigo, int max_cliente, int max_filme, HISTORICO mat_historico[max_cliente][max_filme], int *c_filme_cliente);
+
 int cadastroCliente(CLIENTE* vet_cliente, int* c_cliente, int max_cliente, int* c_filme_cliente);
 int cadastroFilme(FILME* vet_filme, int* c_filme, int max_filme);
 int cadastroPlanoBasicao(PLANO_BASICO* plano_basico);
@@ -25,8 +27,9 @@ int imprimeHistorico(int max_cliente, int max_flime, HISTORICO mat_historico[max
 void imprimeCliente(CLIENTE* vet_cliente, int c_cliente);
 void imprimeClienteExcedente(CLIENTE* vet_cliente, int c_cliente, FILME* vet_filme, int c_filme, CONTRATO* vet_contrato, int c_contrato, int* c_filme_cliente, PLANO_BASICO plano_basico);
 
-
 int frequenciaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], int *c_filme_cliente, FILME *vet_filme, int c_filme, int c_cliente);
+
+int recomendaFilme(CLIENTE* vet_cliente, int c_cliente,int max_cliente, int max_filme, HISTORICO mat_historico[max_cliente][max_filme], int *c_filme_cliente, FILME* vet_filme, int c_filme);
 
 char* retornaGenero(GENERO genero);
 char* retornaClassificacao(CLASSIFICACAO classificacao);

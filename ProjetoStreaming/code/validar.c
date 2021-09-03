@@ -90,3 +90,34 @@ int existeCliente(CLIENTE* vet_cliente, int c_cliente){
     }
     return 0; //retorna 0 se existir algum cliente
 } 
+
+
+// retorna 1 se o cliente assistiu a um filme e 0 se não assistiu, -1 para erro
+int clienteAssistiu(CLIENTE* vet_cliente, int c_cliente, int cpf_local, FILME* vet_filme, int c_filme, int codigo, int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], int *c_filme_cliente){
+
+    int pos_cli = verificaCliente(cpf_local,vet_cliente,c_cliente);
+
+    if(pos_cli){
+
+        int pos_film = verificaFilme(codigo,vet_filme,c_filme);
+
+        if(pos_film){
+
+            pos_cli--;
+            pos_film--;
+
+            for(int c=0;c<c_filme_cliente[pos_cli];c++){
+
+                if(mat_historico[pos_cli][c].codigo == codigo){
+                    return 1;
+                }
+
+            }
+
+        }else return -1;
+
+    }else return -1;
+
+    return 0;
+
+}

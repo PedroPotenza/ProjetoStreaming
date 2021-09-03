@@ -225,7 +225,22 @@ int main(void){
             }
 
             case 13:{
+                x = recomendaFilme(vet_cliente,c_cliente,max_cliente,max_filme,mat_historico,c_filme_cliente,vet_filme,c_filme);
+                switch(x){
 
+                    case 1:
+                        printf("ERRO: Cliente nao cadastrado\n");
+                        break;
+                    case 2:
+                        printf("ERRO: Cliente nao ativo\n");
+                        break;
+                    case 3:
+                        printf("ERRO: Todos os filmes do genero foram assistidos\n");
+                        break;
+                    case 4:
+                        printf("ERRO: Nenhum filme assistido\n");
+
+                }
                 break;
             }
 
