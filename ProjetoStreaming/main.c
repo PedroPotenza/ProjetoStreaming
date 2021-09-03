@@ -165,16 +165,19 @@ int main(void){
                 switch(x){
 
                     case 0: 
-                        printf("Cancelamento feito com sucesso");
+                        printf("Cancelamento feito com sucesso\n");
+                        break;
+                    case 1:
+                        printf("ERRO: Data de cancelamente anteiror a cata de contratacao\n");
                         break;
                     case 2: 
-                        printf("ERRO: Nenhum contrato cadastrado no sistema");
+                        printf("ERRO: Nenhum contrato cadastrado no sistema\n");
                         break;
                     case 3: 
-                        printf("ERRO: Cliente inativo");
+                        printf("ERRO: Cliente inativo\n");
                         break;
                     case 4: 
-                        printf("ERRO: Contrato nao existente");
+                        printf("ERRO: Contrato nao existente\n");
                         break;
                 }
 

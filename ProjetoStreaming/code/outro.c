@@ -216,21 +216,27 @@ int cancelarContrato(CONTRATO *vet_contrato, int c_contratos, CLIENTE *vet_clien
             //falta arrumar o fato que o dia de cancelamento não pode ser antes do dia de contratação se estiver no mesmo mês
             printf("Dia: ");
             dia_local = validaEscopo(1, 31, "ERRO: Dia invalido\n");
-            if(dia_local < vet_contrato[i].data_de_contratacao.dia){
-                return 1; //COLOCAR UM COMENTARIO EXPLICANDO QUE: 
-                /*
-                    receber um dia valido é necessario um do-while, porem verificar 
-                    se o dia é anterior ao dia de contratação não é um do-while
+            if(vet_contrato[i].data_de_contratacao.mes == mes_atual){
+                if(dia_local < vet_contrato[i].data_de_contratacao.dia){
+                    return 1; //COLOCAR UM COMENTARIO EXPLICANDO QUE: 
+                    /*
+                        receber um dia valido é necessario um do-while, porem verificar 
+                        se o dia é anterior ao dia de contratação não é um do-while
 
-                    informar uma data anterior a data de contratação vai levar o usuario ao menu principal
-                */
+                        informar uma data anterior a data de contratação vai levar o usuario ao menu principal
+                    */
+                }
             }
             vet_contrato[i].data_de_cancelamento.dia = dia_local;
             vet_contrato[i].data_de_cancelamento.mes = mes_atual;
 
             switch(vet_contrato[i].plano_tipo){
                 case basico:
-                    valor = plano_basico.valor_base*(vet_contrato[i].data_de_cancelamento.mes - vet_contrato[i].data_de_contratacao.mes);
+                    if(vet_contrato[i].data_de_contratacao.mes == mes_atual)
+                        valor = plano_basico.valor_base;
+                    else
+                        valor = plano_basico.valor_base*(vet_contrato[i].data_de_cancelamento.mes - vet_contrato[i].data_de_contratacao.mes);
+                        
                     if(c_filme_cliente[i] > plano_basico.quantidade_de_filmes)
                         valor = valor + plano_basico.valor_excedente * (c_filme_cliente[i] - plano_basico.quantidade_de_filmes);
                 break;
@@ -239,7 +245,7 @@ int cancelarContrato(CONTRATO *vet_contrato, int c_contratos, CLIENTE *vet_clien
                     valor = plano_premium.valor_base * (vet_contrato[i].data_de_cancelamento.mes - vet_contrato[i].data_de_contratacao.mes);
             }
 
-            printf("Valor devido: %f", valor);
+            printf("Valor devido: %.2f\n", valor);
             
             vet_cliente[x - 1].estado = inativo;
 
