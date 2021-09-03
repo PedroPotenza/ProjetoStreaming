@@ -230,3 +230,45 @@ int cancelarContrato(CONTRATO* vet_contrato, int c_contratos, CLIENTE* vet_clien
     }while(1);
 
 }
+
+int frequenciaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], int *c_filme_cliente, FILME *vet_filme, int c_filme, int c_cliente){
+
+    int codigo;
+    float contador=0, total=0;
+
+    printf("\nCodigo: ");
+    scanf("%d",&codigo);
+    
+    if(verificaFilme(codigo,vet_filme,c_filme)){
+
+        for(int c=0;c<c_cliente;c++){
+
+            for(int d=0;d<c_filme_cliente[c];d++){
+
+                if(mat_historico[c][d].codigo == codigo){
+                    contador++;
+                }
+
+                total++;
+
+            }
+
+        }
+
+        if(total == 0){
+
+            return 2; // Nenhum filme assitido;
+
+        }
+
+        printf("Frequencia: %.2f",100.0*(contador/total));
+
+    }else{
+
+        return 1; // filme não existente;
+
+    }
+
+
+    return 0;
+}

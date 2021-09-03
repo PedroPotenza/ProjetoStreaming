@@ -211,7 +211,9 @@ int main(void){
             }
 
             case 12:{
-
+                x = frequenciaFilme(max_cliente,3*max_filme,mat_historico,c_filme_cliente,vet_filme,c_filme,c_cliente);
+                if(x == 1) printf("ERRO: Codigo invalido\n");
+                if(x == 2) printf("ERRO: Nenhum filme assistido\n");
                 break;
             }
 
