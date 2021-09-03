@@ -6,7 +6,6 @@
 #include "code/outro.c"
 
 #include <stdio.h>
-#include <stdlib.h>
 
 // comando para compilar: gcc main.c code/*.c -o main
 
@@ -176,6 +175,7 @@ int main(void){
                         break;
                     case 4: 
                         printf("ERRO: Contrato nao existente");
+                        break;
                 }
 
                 break;

@@ -179,58 +179,6 @@ int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cli
     } while (1);
 }
 
-int cancelarContrato(CONTRATO* vet_contrato, int c_contratos, CLIENTE* vet_cliente, int c_cliente, int mes_atual){
-
-    int i, x, cpf;
-
-    if(c_contratos == 0){
-        return 2; //não existe contratos
-    }
-    do
-    {
-        printf("\nCPF cadastrado no Contrato: ");
-        scanf("%d", &cpf);
-
-        x = verificaCliente(cpf, vet_cliente, c_cliente);
-        if(x == 0){
-            //não existe esse cliente;
-            printf("ERRO: Contrato nao existente");
-        } else {
-            if(vet_cliente[x-1].estado == 0){
-                return 3; //cliente inativo
-            } else {
-
-                for(i=0; i<c_contratos; i++){
-                    if(vet_contrato->cpf == vet_cliente->cpf)
-                    break;
-                }
-
-                //falta arrumar o fato que o dia de cancelamento não pode ser antes do dia de contratação se estiver no mesmo mês
-                printf("Dia: ");
-                vet_contrato[i].data_de_cancelamento.dia = validaEscopo(1,31,"ERRO: Dia invalido\n");
-                vet_contrato[i].data_de_cancelamento.mes = mes_atual;
-
-                //
-                //
-                //
-                //
-                // calcular e informar o valor devido 
-                //
-                //
-                //
-                //
-                //
-
-                vet_cliente[x-1].estado = inativo; 
-
-                return 0;
-            }
-        }
-
-    }while(1);
-
-}
-
 int cancelarContrato(CONTRATO *vet_contrato, int c_contratos, CLIENTE *vet_cliente, int c_cliente, int mes_atual, PLANO_BASICO plano_basico, PLANO_PREMIUM plano_premium, int* c_filme_cliente)
 {
 
