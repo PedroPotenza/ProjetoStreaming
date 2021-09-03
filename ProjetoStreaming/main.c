@@ -161,7 +161,7 @@ int main(void){
 
             case 7:{
 
-                x = cancelarContrato(vet_contrato, c_contratos, vet_cliente, c_cliente, mes_atual);
+                x = cancelarContrato(vet_contrato, c_contratos, vet_cliente, c_cliente, mes_atual, plano_basico, plano_premium, c_filme_cliente);
                 switch(x){
 
                     case 0: 
@@ -172,6 +172,10 @@ int main(void){
                         break;
                     case 3: 
                         printf("ERRO: Cliente inativo");
+                        break;
+                    case 4: 
+                        printf("ERRO: Contrato nao existente");
+                        break;
                 }
 
                 break;

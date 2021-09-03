@@ -179,56 +179,73 @@ int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cli
     } while (1);
 }
 
-int cancelarContrato(CONTRATO* vet_contrato, int c_contratos, CLIENTE* vet_cliente, int c_cliente, int mes_atual){
+int cancelarContrato(CONTRATO *vet_contrato, int c_contratos, CLIENTE *vet_cliente, int c_cliente, int mes_atual, PLANO_BASICO plano_basico, PLANO_PREMIUM plano_premium, int* c_filme_cliente)
+{
 
-    int i, x, cpf;
+    int i, x, cpf, existe=0;
+    int dia_local; 
+    float valor;
 
-    if(c_contratos == 0){
+    if (c_contratos == 0)
+    {
         return 2; //não existe contratos
     }
-    do
+
+    printf("\nCPF cadastrado no Contrato: ");
+    scanf("%d", &cpf);
+
+    x = verificaCliente(cpf, vet_cliente, c_cliente);
+    if (x == 0)
     {
-        printf("\nCPF cadastrado no Contrato: ");
-        scanf("%d", &cpf);
-
-        x = verificaCliente(cpf, vet_cliente, c_cliente);
-        if(x == 0){
-            //não existe esse cliente;
-            printf("ERRO: Contrato nao existente");
-        } else {
-            if(vet_cliente[x-1].estado == 0){
-                return 3; //cliente inativo
-            } else {
-
-                for(i=0; i<c_contratos; i++){
-                    if(vet_contrato->cpf == vet_cliente->cpf)
-                    break;
-                }
-
-                //falta arrumar o fato que o dia de cancelamento não pode ser antes do dia de contratação se estiver no mesmo mês
-                printf("Dia: ");
-                vet_contrato[i].data_de_cancelamento.dia = validaEscopo(1,31,"ERRO: Dia invalido\n");
-                vet_contrato[i].data_de_cancelamento.mes = mes_atual;
-
-                //
-                //
-                //
-                //
-                // calcular e informar o valor devido 
-                //
-                //
-                //
-                //
-                //
-
-                vet_cliente[x-1].estado = inativo; 
-
-                return 0;
-            }
+        return 4;//não existe esse contrato;
+    }
+    else
+    {
+        if (vet_cliente[x - 1].estado == 0)
+        {
+            return 3; //cliente inativo
         }
+        else
+        {
 
-    }while(1);
+            for(i=0; i<c_contratos; i++){
+                if(vet_contrato[i].cpf == vet_cliente[i].cpf)
+                break;
+            }   //Salvando a posição (index) que o contrato tem q consultar 
 
+            //falta arrumar o fato que o dia de cancelamento não pode ser antes do dia de contratação se estiver no mesmo mês
+            printf("Dia: ");
+            dia_local = validaEscopo(1, 31, "ERRO: Dia invalido\n");
+            if(dia_local < vet_contrato[i].data_de_contratacao.dia){
+                return 1; //COLOCAR UM COMENTARIO EXPLICANDO QUE: 
+                /*
+                    receber um dia valido é necessario um do-while, porem verificar 
+                    se o dia é anterior ao dia de contratação não é um do-while
+
+                    informar uma data anterior a data de contratação vai levar o usuario ao menu principal
+                */
+            }
+            vet_contrato[i].data_de_cancelamento.dia = dia_local;
+            vet_contrato[i].data_de_cancelamento.mes = mes_atual;
+
+            switch(vet_contrato[i].plano_tipo){
+                case basico:
+                    valor = plano_basico.valor_base*(vet_contrato[i].data_de_cancelamento.mes - vet_contrato[i].data_de_contratacao.mes);
+                    if(c_filme_cliente[i] > plano_basico.quantidade_de_filmes)
+                        valor = valor + plano_basico.valor_excedente * (c_filme_cliente[i] - plano_basico.quantidade_de_filmes);
+                break;
+
+                case premium:
+                    valor = plano_premium.valor_base * (vet_contrato[i].data_de_cancelamento.mes - vet_contrato[i].data_de_contratacao.mes);
+            }
+
+            printf("Valor devido: %f", valor);
+            
+            vet_cliente[x - 1].estado = inativo;
+
+            return 0;
+        }
+    }
 }
 
 int frequenciaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], int *c_filme_cliente, FILME *vet_filme, int c_filme, int c_cliente){
