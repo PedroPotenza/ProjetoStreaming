@@ -162,6 +162,3 @@ int cadastroContrato(CONTRATO* vet_contrato, int* c_contratos, int max_contratos
 
 }
 
-
-
-

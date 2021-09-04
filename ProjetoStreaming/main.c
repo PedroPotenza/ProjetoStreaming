@@ -185,7 +185,18 @@ int main(void){
             }
 
             case 8:{
+                x = geraFatura(max_cliente,3*max_filme,mat_historico,vet_contrato,c_contratos,vet_cliente,c_cliente,vet_filme,c_filme,&mes_atual,plano_basico,plano_premium,c_filme_cliente);
+                
+                switch(x){
 
+                    case 1:
+                        printf("ERRO: Cliente nao cadastrado\n");
+                        break;
+                    case 2:
+                        printf("ERRO: Nenhum filme assistido\n");
+                        break;
+
+                }
                 break;
             }
 
@@ -241,11 +252,6 @@ int main(void){
                         printf("ERRO: Nenhum filme assistido\n");
 
                 }
-                break;
-            }
-
-            case 14:{
-
                 break;
             }
 

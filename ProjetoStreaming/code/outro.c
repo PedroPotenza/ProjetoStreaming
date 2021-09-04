@@ -72,8 +72,6 @@ int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cli
     int cpf, codigo, genero_ou_classificacao, escolha;
     int posicao_cliente, posicao_contrato;
 
-    do
-    {
         printf("\nCPF: ");
         scanf("%d", &cpf);
 
@@ -176,7 +174,6 @@ int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cli
             printf("ERRO: Cliente nao ativo\n");
         }
 
-    } while (1);
 }
 
 int cancelarContrato(CONTRATO *vet_contrato, int c_contratos, CLIENTE *vet_cliente, int c_cliente, int mes_atual, PLANO_BASICO plano_basico, PLANO_PREMIUM plano_premium, int* c_filme_cliente)
@@ -238,28 +235,154 @@ int cancelarContrato(CONTRATO *vet_contrato, int c_contratos, CLIENTE *vet_clien
             vet_contrato[i].data_de_cancelamento.dia = dia_local;
             vet_contrato[i].data_de_cancelamento.mes = mes_atual;
 
-            switch(vet_contrato[i].plano_tipo){
-                case basico:
-                    if(vet_contrato[i].data_de_contratacao.mes == mes_atual)
-                        valor = plano_basico.valor_base;
-                    else
-                        valor = plano_basico.valor_base*(vet_contrato[i].data_de_cancelamento.mes - vet_contrato[i].data_de_contratacao.mes);
+            // switch(vet_contrato[i].plano_tipo){
+            //     case basico:
+            //         if(vet_contrato[i].data_de_contratacao.mes == mes_atual)
+            //             valor = plano_basico.valor_base;
+            //         else
+            //             valor = plano_basico.valor_base*(vet_contrato[i].data_de_cancelamento.mes - vet_contrato[i].data_de_contratacao.mes);
                         
-                    if(c_filme_cliente[x-1] > plano_basico.quantidade_de_filmes)
-                        valor = valor + plano_basico.valor_excedente * (c_filme_cliente[x-1] - plano_basico.quantidade_de_filmes);
-                break;
+            //         if(c_filme_cliente[x-1] > plano_basico.quantidade_de_filmes)
+            //             valor = valor + plano_basico.valor_excedente * (c_filme_cliente[x-1] - plano_basico.quantidade_de_filmes);
+            //         break;
 
-                case premium:
-                    valor = plano_premium.valor_base * (vet_contrato[i].data_de_cancelamento.mes - vet_contrato[i].data_de_contratacao.mes);
-            }
+            //     case premium:
+            //         valor = plano_premium.valor_base * (vet_contrato[i].data_de_cancelamento.mes - vet_contrato[i].data_de_contratacao.mes);
+            //         break;
+            // }
 
-            printf("Valor devido: %.2f\n", valor);
+            printf("Valor devido: %.2f\n", valorDevido(plano_basico,plano_premium/*,vet_contrato[i].data_de_contratacao,vet_contrato[i].data_de_cancelamento*/,c_filme_cliente[x-1],vet_contrato[i].plano_tipo));
             
             vet_cliente[x - 1].estado = inativo;
+
+            c_filme_cliente[x-1] = 0;
 
             return 0;
         }
     }
+}
+
+float valorDevido(PLANO_BASICO plano_basico, PLANO_PREMIUM plano_premium /*, DATA contratacao, DATA cancelamento*/, int quantidade_filmes, PLANO_TIPO tipo_plano){
+
+    float valor = 0;
+
+    if(tipo_plano == basico){
+
+        valor = plano_basico.valor_base;//*(cancelamento.mes - contratacao.mes + 1);
+
+        if(quantidade_filmes > plano_basico.quantidade_de_filmes) {
+
+            valor += plano_basico.valor_excedente*(quantidade_filmes - plano_basico.quantidade_de_filmes);
+
+        }
+        
+    }else{
+
+        valor = plano_premium.valor_base;//*(cancelamento.mes-contratacao.mes + 1);
+
+    }
+
+    return valor;
+
+}
+
+int geraFatura(int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], CONTRATO *vet_contrato, int c_contrato, CLIENTE *vet_cliente, int c_cliente, FILME* vet_filme, int c_filme, int* mes_atual, PLANO_BASICO plano_basico, PLANO_PREMIUM plano_premium, int* c_filme_cliente){
+
+    int escolha, x=0;
+
+    printf("\nFatura especifica ou de todos os clientes?[0/1]:");
+    scanf("%d",&escolha);
+
+    if(escolha == 0){
+
+        int cpf;
+        printf("\nCPF: ");
+        scanf("%d",&cpf);
+
+        x = faturaCliente(cpf,max_cliente,max_flime,mat_historico,vet_contrato,c_contrato,vet_cliente,c_cliente,vet_filme,c_filme,*mes_atual,plano_basico,plano_premium,c_filme_cliente);
+
+    }else{
+
+        x = faturaTodosClientes(max_cliente,max_flime,mat_historico,vet_contrato,c_contrato,vet_cliente,c_cliente,mes_atual,plano_basico,plano_premium,c_filme_cliente);
+
+    }
+
+    return x;
+
+}
+
+int faturaTodosClientes(int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], CONTRATO *vet_contrato, int c_contrato, CLIENTE *vet_cliente, int c_cliente, int* mes_atual, PLANO_BASICO plano_basico, PLANO_PREMIUM plano_premium, int* c_filme_cliente){
+
+    for(int c=0;c<c_contrato;c++){
+
+        int pos_cliente = verificaCliente(vet_contrato[c].cpf,vet_cliente,c_cliente);
+        pos_cliente--;
+
+        if(vet_cliente[pos_cliente].estado == ativo){
+
+            printf("CPF: %d\n",vet_cliente[pos_cliente].cpf);
+            printf("Nome: %s\n",vet_cliente[pos_cliente].nome);
+            printf("Valor devido: %.2f\n",valorDevido(plano_basico,plano_premium/*,vet_contrato[c].data_de_contratacao,vet_contrato[c].data_de_cancelamento*/,c_filme_cliente[pos_cliente],vet_contrato[c].plano_tipo));      
+       
+        }
+
+    }
+
+    (*mes_atual)++;
+
+    for(int c=0;c<max_cliente;c++){
+
+         for(int d=0;d<max_flime;d++){
+
+            mat_historico[c][d].codigo = 0;
+            mat_historico[c][d].data.dia = 0;
+            mat_historico[c][d].data.mes = 0;
+
+
+        }
+
+        c_filme_cliente[c] = 0;
+        //vet_cliente[c].estado = inativo;
+    }
+
+
+    return 0;
+
+}
+
+int faturaCliente(int cpf, int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], CONTRATO *vet_contrato, int c_contrato, CLIENTE *vet_cliente, int c_cliente, FILME* vet_filme, int c_filme, int mes_atual, PLANO_BASICO plano_basico, PLANO_PREMIUM plano_premium, int* c_filme_cliente){
+
+    int pos_cliente = verificaCliente(cpf,vet_cliente,c_cliente);
+
+    if(pos_cliente){
+
+        pos_cliente--;
+
+        for(int c=0;c<c_filme_cliente[pos_cliente];c++){
+
+            int pos_filme = verificaFilme(mat_historico[pos_cliente][c].codigo,vet_filme,c_filme);
+            pos_filme--;
+
+            printf("Nome: %s\n",vet_filme[pos_filme].nome);
+            printf("Data: %d/%d\n",mat_historico[pos_cliente][c].data.dia,mat_historico[pos_cliente][c].data.mes);
+
+        }
+
+        int pos_contrato = verificaContrato(cpf,vet_contrato,c_contrato);
+
+        if(pos_contrato == 0) return 2; // Não existe contrato
+
+        pos_contrato--;
+
+        printf("Valor devido: %.2f\n",valorDevido(plano_basico,plano_premium/*,vet_contrato[pos_contrato].data_de_contratacao,vet_contrato[pos_contrato].data_de_cancelamento*/,c_filme_cliente[pos_cliente],vet_contrato[pos_contrato].plano_tipo));
+
+        c_filme_cliente[pos_cliente] = 0;
+        //vet_cliente[pos_cliente].estado = inativo;
+
+    }else return 1; // Cliente não cadastrado
+
+    return 0;
+
 }
 
 int frequenciaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], int *c_filme_cliente, FILME *vet_filme, int c_filme, int c_cliente){

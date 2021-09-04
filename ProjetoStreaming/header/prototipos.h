@@ -34,6 +34,11 @@ int recomendaFilme(CLIENTE* vet_cliente, int c_cliente,int max_cliente, int max_
 char* retornaGenero(GENERO genero);
 char* retornaClassificacao(CLASSIFICACAO classificacao);
 
+float valorDevido(PLANO_BASICO plano_basico, PLANO_PREMIUM plano_premium/*, DATA contratacao, DATA cancelamento*/, int quantidade_filmes, PLANO_TIPO tipo_plano);
 
+
+int geraFatura(int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], CONTRATO *vet_contrato, int c_contrato, CLIENTE *vet_cliente, int c_cliente, FILME* vet_filme, int c_filme, int* mes_atual, PLANO_BASICO plano_basico, PLANO_PREMIUM plano_premium, int* c_filme_cliente);
+int faturaTodosClientes(int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], CONTRATO *vet_contrato, int c_contrato, CLIENTE *vet_cliente, int c_cliente, int* mes_atual, PLANO_BASICO plano_basico, PLANO_PREMIUM plano_premium, int* c_filme_cliente);
+int faturaCliente(int cpf, int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], CONTRATO *vet_contrato, int c_contrato, CLIENTE *vet_cliente, int c_cliente, FILME* vet_filme, int c_filme, int mes_atual, PLANO_BASICO plano_basico, PLANO_PREMIUM plano_premium, int* c_filme_cliente);
 
 #endif
