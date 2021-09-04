@@ -171,13 +171,13 @@ int main(void){
                         printf("ERRO: Data de cancelamente anteiror a cata de contratacao\n");
                         break;
                     case 2: 
-                        printf("ERRO: Nenhum contrato cadastrado no sistema\n");
+                        printf("ERRO: Cliente nao cadastrado\n");//printf("ERRO: Nenhum contrato cadastrado no sistema\n");
                         break;
                     case 3: 
                         printf("ERRO: Cliente inativo\n");
                         break;
                     case 4: 
-                        printf("ERRO: Contrato nao existente\n");
+                        printf("ERRO: Cliente nao possui contrato\n"); // printf("ERRO: Contrato nao existente\n");
                         break;
                 }
 

@@ -94,52 +94,58 @@ int cadastroContrato(CONTRATO* vet_contrato, int* c_contratos, int max_contratos
             return 2; //nenhum cliente cadastrado no sistema
 
         int cpf;
-
-        do{            
+            
             printf("\nCPF: ");
             scanf("%d",&cpf);
 
-            if(verificaCliente(cpf, vet_cliente, c_cliente)){
+            int posicao_cliente = verificaCliente(cpf,vet_cliente,c_cliente);
+            
+            if(posicao_cliente){
 
-                if(!verificaContrato(cpf, vet_contrato, *c_contratos)){
+                posicao_cliente--;
 
-                    vet_contrato[(*c_contratos)].cpf = cpf;
+                if(vet_cliente[posicao_cliente].estado == inativo){
+
+                    int pos_contrato = verificaContrato(cpf, vet_contrato, *c_contratos);
+
+                    if(!pos_contrato){
+
+                        pos_contrato = (*c_contratos);
+                        (*c_contratos)++;
+
+                    }else pos_contrato--;
+
+                    vet_contrato[pos_contrato].cpf = cpf;
 
                     printf("Tipo de plano: ");
-                    vet_contrato[(*c_contratos)].plano_tipo = validaEscopo(0,1,"ERRO: Tipo de plano invalido\n");
+                    vet_contrato[pos_contrato].plano_tipo = validaEscopo(0,1,"ERRO: Tipo de plano invalido\n");
 
                     // removi o campo plano, pois só existe um plano, basico ou premium
 
                     printf("Tipo de pagamento: ");
-                    vet_contrato[(*c_contratos)].pagamento_tipo = validaEscopo(0,1,"ERRO: Tipo de pagamento invalido\n");
+                    vet_contrato[pos_contrato].pagamento_tipo = validaEscopo(0,1,"ERRO: Tipo de pagamento invalido\n");
                     
-                    if(vet_contrato[(*c_contratos)].pagamento_tipo == debito){
+                    if(vet_contrato[pos_contrato].pagamento_tipo == debito){
 
                         printf("Ag: ");
-                        scanf("%d",&vet_contrato[(*c_contratos)].pagamento.debito.agencia);
+                        scanf("%d",&vet_contrato[pos_contrato].pagamento.debito.agencia);
                         printf("Conta: ");
-                        scanf("%d",&vet_contrato[(*c_contratos)].pagamento.debito.conta);
+                        scanf("%d",&vet_contrato[pos_contrato].pagamento.debito.conta);
                     }else{
                         printf("Numero do Cartao: ");
-                        scanf("%d",&vet_contrato[(*c_contratos)].pagamento.credito.numero_do_cartao);
+                        scanf("%d",&vet_contrato[pos_contrato].pagamento.credito.numero_do_cartao);
                     }
 
-                    vet_contrato[(*c_contratos)].data_de_cancelamento.dia = 0;
-                    vet_contrato[(*c_contratos)].data_de_cancelamento.mes = 0;
+                    vet_contrato[pos_contrato].data_de_cancelamento.dia = 0;
+                    vet_contrato[pos_contrato].data_de_cancelamento.mes = 0;
 
                     printf("Dia: ");
-                    vet_contrato[(*c_contratos)].data_de_contratacao.dia = validaEscopo(1,31,"ERRO: Dia invalido\n");
+                    vet_contrato[pos_contrato].data_de_contratacao.dia = validaEscopo(1,31,"ERRO: Dia invalido\n");
 
-                    vet_contrato[(*c_contratos)].data_de_contratacao.mes = mes_atual;
+                    vet_contrato[pos_contrato].data_de_contratacao.mes = mes_atual;
                     //validaEscopo(1,12,"ERRO: Mes invalido\n");
 
-                    int posicao_cliente = verificaCliente(cpf,vet_cliente,c_cliente);
-                    posicao_cliente--;
-
                     vet_cliente[posicao_cliente].estado = ativo;
-
-
-                    (*c_contratos)++;
 
                     return 0;
 
@@ -151,8 +157,6 @@ int cadastroContrato(CONTRATO* vet_contrato, int* c_contratos, int max_contratos
             }else{
                 printf("ERRO: Cliente nao cadastrado\n");
             }
-
-        }while(1);
 
     }
 

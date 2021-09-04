@@ -186,10 +186,10 @@ int cancelarContrato(CONTRATO *vet_contrato, int c_contratos, CLIENTE *vet_clien
     int dia_local; 
     float valor;
 
-    if (c_contratos == 0)
-    {
-        return 2; //não existe contratos
-    }
+    //if (c_contratos == 0)
+    //{
+        //return 2; //não existe contratos
+    //}
 
     printf("\nCPF cadastrado no Contrato: ");
     scanf("%d", &cpf);
@@ -197,21 +197,29 @@ int cancelarContrato(CONTRATO *vet_contrato, int c_contratos, CLIENTE *vet_clien
     x = verificaCliente(cpf, vet_cliente, c_cliente);
     if (x == 0)
     {
-        return 4;//não existe esse contrato;
+        return 2;// Cliente não cadastrado
     }
     else
     {
-        if (vet_cliente[x - 1].estado == 0)
+        if (vet_cliente[x - 1].estado == inativo)
         {
             return 3; //cliente inativo
         }
         else
         {
 
-            for(i=0; i<c_contratos; i++){
-                if(vet_contrato[i].cpf == vet_cliente[i].cpf)
-                break;
-            }   //Salvando a posição (index) que o contrato tem q consultar 
+            // for(i=0; i<c_contratos; i++){
+            //     if(vet_contrato[i].cpf == vet_cliente[x-1].cpf)
+            //     break;
+            // }   //Salvando a posição (index) que o contrato tem q consultar 
+
+            // na verdade, acho que por ele estar inativo ele não tem um contrato, então poderia retirar isso, mas não vamos, só pra n quebrar
+
+            i = verificaContrato(vet_cliente[x-1].cpf,vet_contrato,c_contratos);
+
+            if(i == 0) return 4; // Contrato não existe;
+
+            i--;
 
             //falta arrumar o fato que o dia de cancelamento não pode ser antes do dia de contratação se estiver no mesmo mês
             printf("Dia: ");
@@ -237,8 +245,8 @@ int cancelarContrato(CONTRATO *vet_contrato, int c_contratos, CLIENTE *vet_clien
                     else
                         valor = plano_basico.valor_base*(vet_contrato[i].data_de_cancelamento.mes - vet_contrato[i].data_de_contratacao.mes);
                         
-                    if(c_filme_cliente[i] > plano_basico.quantidade_de_filmes)
-                        valor = valor + plano_basico.valor_excedente * (c_filme_cliente[i] - plano_basico.quantidade_de_filmes);
+                    if(c_filme_cliente[x-1] > plano_basico.quantidade_de_filmes)
+                        valor = valor + plano_basico.valor_excedente * (c_filme_cliente[x-1] - plano_basico.quantidade_de_filmes);
                 break;
 
                 case premium:
