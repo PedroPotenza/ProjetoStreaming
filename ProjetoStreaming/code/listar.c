@@ -60,41 +60,42 @@ int listaClassificacao(FILME* vet_filme, int c_filme, int escolha){
 
 }
 
-void imprimeCliente(CLIENTE* vet_cliente, int c_cliente){
+void imprimeCliente(CLIENTE *vet_cliente, int c_cliente)
+{
 
     int cpf_local, existe, i;
 
-    if(existeCliente(vet_cliente, c_cliente)){
-        printf("ERRO: Nenhum cliente cadastrado no sistema");
+    if (existeCliente(vet_cliente, c_cliente))
+    {
+        printf("ERRO: Nenhum cliente cadastrado no sistema\n");
         return;
     }
 
-    do{
+    printf("\nCPF: ");
+    scanf("%d", &cpf_local);
 
-        printf("\nCPF: ");
-        scanf("%d", &cpf_local);
+    existe = verificaCliente(cpf_local, vet_cliente, c_cliente);
 
-        existe = verificaCliente(cpf_local, vet_cliente, c_cliente);
+    if (!existe)
+    {
+        printf("ERRO: Cliente nao cadastrado\n");
+        return;
+    }
 
-        if(!existe) {
-            printf("ERRO: Cliente nao cadastrado");
-            continue;
-        }
-
-        if(existe=1){
-            for(i=0; i<c_cliente; i++){
-                if(cpf_local == vet_cliente[i].cpf){
-//                    printf("CPF: %d\n", vet_cliente[i].cpf); 
-                    printf("Nome: %s\n", vet_cliente[i].nome); 
-                    printf("Email: %s\n", vet_cliente[i].email);
-                    printf("Telefone: %s\n", vet_cliente[i].telefone);
-                    printf("Status: %d\n", vet_cliente[i].estado);
-        
-                }
+    if (existe = 1)
+    {
+        for (i = 0; i < c_cliente; i++)
+        {
+            if (cpf_local == vet_cliente[i].cpf)
+            {
+                //printf("CPF: %d\n", vet_cliente[i].cpf);
+                printf("Nome: %s\n", vet_cliente[i].nome);
+                printf("Email: %s\n", vet_cliente[i].email);
+                printf("Telefone: %s\n", vet_cliente[i].telefone);
+                printf("Status: %d\n", vet_cliente[i].estado);
             }
-        } 
-
-    }while(existe!=1);
+        }
+    }
 }
 
 int imprimeHistorico(int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], int* c_filme_cliente, CLIENTE* vet_cliente, int c_cliente, FILME* vet_filme, int c_filme){

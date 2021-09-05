@@ -7,14 +7,22 @@
 
 int cadastroCliente(CLIENTE* vet_cliente, int* c_cliente, int max_cliente, int* c_filme_cliente){
 
-    int cpf_local;
+    int cpf_local,i;
 
     if((*c_cliente) == max_cliente) return 1; //numero maximo de clientes atingido
     
     else {
 
         printf("\nCPF: ");
-        vet_cliente[(*c_cliente)].cpf = validaCpf(vet_cliente,(*c_cliente),"ERRO: CPF do cliente ja cadastrado\n");
+        scanf("%d", &cpf_local);
+
+        for(i=0; i<(*c_cliente); i++){
+            if(cpf_local == vet_cliente[i].cpf){
+                return 2; //cliente ja cadastrado
+            }
+        }
+
+        vet_cliente[(*c_cliente)].cpf = cpf_local;
         //strcpy(vet_cliente[(*c_cliente)].cpf, cpf_local) //caso CPF for um array de char
 
         printf("Nome: ");
