@@ -209,7 +209,7 @@ int cadastroCliente(CLIENTE* vet_cliente, int* c_cliente, int max_cliente, int* 
 
 int cadastroFilme(FILME* vet_filme, int* c_filme, int max_filme){
 
-    int genero_local, classificacao_local;
+    //int genero_local, classificacao_local;
 
     if((*c_filme)==max_filme){
         return 1; //numero maximo de filmes atingido
@@ -337,7 +337,7 @@ int listaGenero(FILME* vet_filme, int c_filme, int escolha){
 
     for(int c=0; c<c_filme;c++){
 
-        if(vet_filme[c].genero == escolha){
+        if(vet_filme[c].genero == (GENERO)escolha){
 
             valida = 1;
 
@@ -364,7 +364,7 @@ int listaClassificacao(FILME* vet_filme, int c_filme, int escolha){
 
     for(int c=0; c<c_filme;c++){
 
-        if(vet_filme[c].classificacao == escolha){
+        if(vet_filme[c].classificacao == (CLASSIFICACAO)escolha){
 
             valida = 1;
 
@@ -406,7 +406,7 @@ void imprimeCliente(CLIENTE *vet_cliente, int c_cliente)
         return;
     }
 
-    if (existe = 1)
+    if (existe == 1)
     {
         for (i = 0; i < c_cliente; i++)
         {
@@ -679,9 +679,9 @@ int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cli
 int cancelarContrato(CONTRATO *vet_contrato, int c_contratos, CLIENTE *vet_cliente, int c_cliente, int mes_atual, PLANO_BASICO plano_basico, PLANO_PREMIUM plano_premium, int* c_filme_cliente)
 {
 
-    int i, x, cpf, existe=0;
+    int i, x, cpf;// existe=0;
     int dia_local; 
-    float valor;
+    //float valor;
 
     //if (c_contratos == 0)
     //{
@@ -999,7 +999,7 @@ int recomendaFilme(CLIENTE* vet_cliente, int c_cliente,int max_cliente, int max_
                     for(int d=0;d<c_filme;d++){
                         //printf("%d ",c_filme);
 
-                        if(vet_filme[d].genero == empates[c]){
+                        if(vet_filme[d].genero == (GENERO)empates[c]){
 
                             //printf("%d || %d ",vet_filme[d].genero, empates[c]);
 
