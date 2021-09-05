@@ -130,6 +130,12 @@ int main(void){
                     case 2: 
                         printf("ERRO: Nenhum cliente cadastrado no sistema");
                         break;
+                    case 3:
+                        printf("ERRO: Cliente nao cadastrado\n");
+                        break;
+                    case 4:
+                        printf("ERRO: Cliente com contrato existente\n");
+                        break;
                 }
                 //Nenhum cliente cadastrado no sistema
                     //Cliente ja possui um contrato
@@ -149,6 +155,9 @@ int main(void){
                         break;
                     case 1:
                         printf("ERRO: Numero maximo de filmes no sistema atingido\n");
+                        break;
+                    case 2: 
+                        printf("ERRO: Cliente nao cadastrado\n");
                         break;
                     case 4:
                         printf("ERRO: Filme nao encontrado\n");

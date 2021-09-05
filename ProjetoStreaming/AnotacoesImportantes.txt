@@ -4,12 +4,15 @@
 
 5.
 	5.1 - Não tem sentido ter a mensagem de numero maixmo de contratos no sistema atingido, pois isso esta diretamente relacionado ao numero de clientes, então tipo, quando tiver todos os clientes e todos eles estiverem contrato, só não vai ser possivel cadastrar pq não vai ter CPF disponivel (ou seja, ele vai ficar falando "Cliente ja possui contrato").
+	
 	5.2 - max_contratos = max_clientes
 		Todo cliente pode ter um contrato (mas n pode ter mais de um) e todo contrato só pode ter um cliente, não tem sentido esses valores serem diferentes.
 
 
 6. 
-	6.1 - Erro ao tentar carregar um filme enquanto não existe nada no sistema. (2 mensagens de erro e 1 de sucesso)
+	6.1 - Texto para decidir entre genero ou classificacao: 
+		0 - genero
+		1 - classificao
 
 7. 
 	7.1 - Adicionar a mensagem de erro para caso não exista nenhum contrato cadastrado no sistema.

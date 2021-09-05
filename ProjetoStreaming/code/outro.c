@@ -78,7 +78,7 @@ int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cli
         posicao_cliente = verificaCliente(cpf, vet_cliente, c_cliente);
 
         if (posicao_cliente == 0)
-            printf("ERRO: Cliente nao cadastrado\n");
+            return 2;
 
         posicao_cliente--;
 
@@ -102,7 +102,10 @@ int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cli
                 printf("Genero ou classificacao[0/1]: ");
                 genero_ou_classificacao = validaEscopo(0, 1, "ERRO: Escolha invalida\n");
 
-                printf("Escolha:");
+                if(genero_ou_classificacao == 0){
+                    printf("Genero:");
+                } else { printf("Classificacao:");}
+                
 
                 escolha = validaEscopo(0, 5, "ERRO: Escolha invalida\n");
 

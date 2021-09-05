@@ -112,7 +112,9 @@ int cadastroContrato(CONTRATO* vet_contrato, int* c_contratos, int max_contratos
 
                 posicao_cliente--;
 
-                if(vet_cliente[posicao_cliente].estado == inativo){
+                if(vet_cliente[posicao_cliente].estado == ativo){
+                    return 4; // contrato já existente
+                }
 
                     int pos_contrato = verificaContrato(cpf, vet_contrato, *c_contratos);
 
@@ -130,7 +132,7 @@ int cadastroContrato(CONTRATO* vet_contrato, int* c_contratos, int max_contratos
 
                     // removi o campo plano, pois só existe um plano, basico ou premium
 
-                    printf("Tipo de pagamento: ");
+                    printf("Tipo de pagamento (Debito (0) ou Credito (1)): ");
                     vet_contrato[pos_contrato].pagamento_tipo = validaEscopo(0,1,"ERRO: Tipo de pagamento invalido\n");
                     
                     if(vet_contrato[pos_contrato].pagamento_tipo == debito){
@@ -156,14 +158,9 @@ int cadastroContrato(CONTRATO* vet_contrato, int* c_contratos, int max_contratos
                     vet_cliente[posicao_cliente].estado = ativo;
 
                     return 0;
-
-                }else{
-                    printf("ERRO: Cliente com contrato existente\n"); // contrato já existente
-                    //aqui ta criando um loop infinito caso TODOS os clientes cadastrados ja tiverem contratos;
-                }
                 
             }else{
-                printf("ERRO: Cliente nao cadastrado\n");
+                return 3;
             }
 
     }
