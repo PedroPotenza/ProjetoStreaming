@@ -78,7 +78,7 @@ int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cli
         posicao_cliente = verificaCliente(cpf, vet_cliente, c_cliente);
 
         if (posicao_cliente == 0)
-            printf("ERRO: Cliente nao cadastrado\n");
+            return 2;
 
         posicao_cliente--;
 
@@ -102,7 +102,9 @@ int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cli
                 printf("Genero ou classificacao[0/1]: ");
                 genero_ou_classificacao = validaEscopo(0, 1, "ERRO: Escolha invalida\n");
 
-                printf("Escolha:");
+                if(genero_ou_classificacao == 0){
+                    printf("Genero: ");
+                } else { printf("Classificao: ");}
 
                 escolha = validaEscopo(0, 5, "ERRO: Escolha invalida\n");
 
@@ -152,8 +154,7 @@ int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cli
 
                             if (escolha == 0)
                             {
-
-                                return 6; // filme não carregado;
+                                return 7; // filme não carregado;
                             }
                         }
                     }
@@ -183,10 +184,10 @@ int cancelarContrato(CONTRATO *vet_contrato, int c_contratos, CLIENTE *vet_clien
     int dia_local; 
     float valor;
 
-    //if (c_contratos == 0)
-    //{
-        //return 2; //não existe contratos
-    //}
+    if (c_contratos == 0)
+    {
+        return 5; //não existe contratos
+    }
 
     printf("\nCPF cadastrado no Contrato: ");
     scanf("%d", &cpf);
@@ -345,7 +346,7 @@ int faturaTodosClientes(int max_cliente, int max_flime, HISTORICO mat_historico[
         //vet_cliente[c].estado = inativo;
     }
 
-
+    printf("Mes vigente apos a fatura: %d", (*mes_atual));
     return 0;
 
 }

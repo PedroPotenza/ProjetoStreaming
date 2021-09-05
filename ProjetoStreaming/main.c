@@ -128,7 +128,7 @@ int main(void){
                         printf("ERRO: Numero maximo de contratos no sistema atingido\n");
                         break;
                     case 2: 
-                        printf("ERRO: Nenhum cliente cadastrado no sistema");
+                        printf("ERRO: Nenhum cliente cadastrado no sistema\n");
                         break;
                     case 3:
                         printf("ERRO: Cliente nao cadastrado\n");
@@ -168,6 +168,9 @@ int main(void){
                     case 6:
                         printf("ERRO: Cliente nao ativo\n");
                         break;
+                    case 7:
+                        printf("ERRO: Taxa adicional negada\n");
+                        break;   
                 }
 
                 break;
@@ -185,13 +188,16 @@ int main(void){
                         printf("ERRO: Data de cancelamente anteiror a cata de contratacao\n");
                         break;
                     case 2: 
-                        printf("ERRO: Cliente nao cadastrado\n");//printf("ERRO: Nenhum contrato cadastrado no sistema\n");
+                        printf("ERRO: Cliente nao cadastrado\n");
                         break;
                     case 3: 
                         printf("ERRO: Cliente inativo\n");
                         break;
                     case 4: 
                         printf("ERRO: Cliente nao possui contrato\n"); // printf("ERRO: Contrato nao existente\n");
+                        break;
+                    case 5: 
+                        printf("ERRO: Nenhum contrato cadastrado no sistema\n");
                         break;
                 }
 
