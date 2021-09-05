@@ -72,6 +72,9 @@ int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cli
     int cpf, codigo, genero_ou_classificacao, escolha;
     int posicao_cliente, posicao_contrato;
 
+        if(c_cliente==0)
+            return 8;
+
         printf("\nCPF: ");
         scanf("%d", &cpf);
 
@@ -296,6 +299,9 @@ int geraFatura(int max_cliente, int max_flime, HISTORICO mat_historico[max_clien
 
     if(escolha == 0){
 
+        if(c_cliente==0)
+        return 3;
+
         int cpf;
         printf("\nCPF: ");
         scanf("%d",&cpf);
@@ -391,6 +397,9 @@ int frequenciaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_
     int codigo;
     float contador=0, total=0;
 
+    if(c_filme==0)
+        return 3;
+
     printf("\nCodigo: ");
     scanf("%d",&codigo);
     
@@ -431,6 +440,9 @@ int frequenciaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_
 int recomendaFilme(CLIENTE* vet_cliente, int c_cliente,int max_cliente, int max_filme, HISTORICO mat_historico[max_cliente][max_filme], int *c_filme_cliente, FILME* vet_filme, int c_filme){
 
     int cpf, contador_genero[6] = {0};
+
+    if(c_cliente==0)
+        return 5;
 
     printf("\nCPF: ");
     scanf("%d",&cpf);

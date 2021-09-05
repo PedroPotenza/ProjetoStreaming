@@ -102,6 +102,9 @@ int imprimeHistorico(int max_cliente, int max_flime, HISTORICO mat_historico[max
 
     int cpf;
 
+    if(c_cliente == 0)
+        return 3;
+
     printf("\nCPF: ");
     scanf("%d",&cpf);
 

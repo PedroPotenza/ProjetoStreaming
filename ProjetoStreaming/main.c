@@ -170,6 +170,9 @@ int main(void){
                         break;
                     case 7:
                         printf("ERRO: Taxa adicional negada\n");
+                        break;
+                    case 8: 
+                        printf("ERRO: Nenhum cliente cadastrado no sistema\n");
                         break;   
                 }
 
@@ -185,7 +188,7 @@ int main(void){
                         printf("Cancelamento feito com sucesso\n");
                         break;
                     case 1:
-                        printf("ERRO: Data de cancelamente anteiror a cata de contratacao\n");
+                        printf("ERRO: Data de cancelamente anteiror a data de contratacao\n");
                         break;
                     case 2: 
                         printf("ERRO: Cliente nao cadastrado\n");
@@ -215,6 +218,9 @@ int main(void){
                     case 2:
                         printf("ERRO: Nenhum filme assistido\n");
                         break;
+                    case 3: 
+                        printf("ERRO: Nenhum cliente cadastrado no sistema\n");
+                        break;
 
                 }
                 break;
@@ -237,6 +243,9 @@ int main(void){
                     case 2:
                         printf("ERRO: Nenhum filme assistido\n");
                         break;
+                    case 3: 
+                        printf("ERRO: Nenhum cliente cadastrado no sistema\n");
+                        break;
 
                 }
                 
@@ -252,6 +261,7 @@ int main(void){
                 x = frequenciaFilme(max_cliente,3*max_filme,mat_historico,c_filme_cliente,vet_filme,c_filme,c_cliente);
                 if(x == 1) printf("ERRO: Codigo invalido\n");
                 if(x == 2) printf("ERRO: Nenhum filme assistido\n");
+                if(x == 3) printf("ERRO: Nenhum filme cadastrado no sistema\n");
                 break;
             }
 
@@ -266,10 +276,13 @@ int main(void){
                         printf("ERRO: Cliente nao ativo\n");
                         break;
                     case 3:
-                        printf("ERRO: Todos os filmes do genero foram assistidos\n");
+                        printf("ERRO: Todos os filmes do(s) genero(s) foram assistidos\n");
                         break;
                     case 4:
                         printf("ERRO: Nenhum filme assistido\n");
+                    case 5: 
+                        printf("ERRO: Nenhum cliente cadastrado no sistema\n");
+                        break;
 
                 }
                 break;
