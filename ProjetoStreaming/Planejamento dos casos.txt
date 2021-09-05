@@ -8,7 +8,7 @@
 1, 2, 3, 4, 5, 6, 
 
 // case 4 - ABERTO //Listar
-1, 2, 3, 4, 5, 6, 9, 10, 11
+9, 1, 2, 3, 4, 5, 6, 9, 10, 11
 
 // case 5 - ABERTO //Gerar Fatura e Cancelamento
 1, 2, 3, 4, 5, 6, 7, 8, 9
@@ -16,7 +16,7 @@
 //case 6 - ABERTO //Frequencia e Recomendar filme
 1, 2, 3, 4, 5, 6, 12, 13
 
-//case 7 - FECHADO //Funcionando
+//case 7 - FECHADO //Funcionando e chegando nos limites dos vetores
 1, 2, 3, 4, 5, 6, 8, 9, 10
 
 //case 8 - FECHADO //Erros

@@ -1,3 +1,5 @@
+0. 
+	0.1 - Arrumar o printf KKKKKKKK
 1.
 	1.1 - ValidaCPF talvez esteja inutil	
 
@@ -13,7 +15,10 @@
 	7.1 - Adicionar a mensagem de erro para caso não exista nenhum contrato cadastrado no sistema.
 
 8.
-	8.1 - ao gerar a fatura de todos os clientes, poderia ser printado: 
-	"Mês vigiente apos a fatura: %d"
-	Printar o numero do mês ou o nome por extenso. (decidir) 
+	8.2 - Arrumar o do-while faltando  
 
+10.
+	10.1 - adicionar printf("nenhum cleinte no sistema")
+
+11.
+	11.1 - CPF printando errado
