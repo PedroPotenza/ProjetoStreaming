@@ -165,6 +165,9 @@ int main(void){
                     case 5:
                         printf("ERRO: Cliente nao possui contrato\n");
                         break;
+                    case 6:
+                        printf("ERRO: Cliente nao ativo\n");
+                        break;
                 }
 
                 break;

@@ -171,7 +171,7 @@ int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cli
         else
         {
 
-            printf("ERRO: Cliente nao ativo\n");
+            return 6;
         }
 
 }
