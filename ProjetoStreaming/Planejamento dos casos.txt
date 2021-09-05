@@ -1,0 +1,28 @@
+// case 1 - ABERTO //Cadastros
+1, 2, 9 
+
+// case 2 - ABERTO //Essenciais
+1, 2, 3, 4, 5
+
+// case 3 - ABERTO //Carregar filme (pesada)
+1, 2, 3, 4, 5, 6, 
+
+// case 4 - ABERTO //Listar
+1, 2, 3, 4, 5, 6, 9, 10, 11
+
+// case 5 - ABERTO //Gerar Fatura e Cancelamento
+1, 2, 3, 4, 5, 6, 7, 8, 9
+
+//case 6 - ABERTO //Frequencia e Recomendar filme
+1, 2, 3, 4, 5, 6, 12, 13
+
+//case 7 - FECHADO //Funcionando
+1, 2, 3, 4, 5, 6, 8, 9, 10
+
+//case 8 - FECHADO //Erros
+1, 2, 3, 4, 5, 6, 7, 8, 10, 11
+
+//case 9 - FECHADO //Erros de inicio 
+13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1
+
+/// caso 10 - CASO COMPLETO - FECHADO

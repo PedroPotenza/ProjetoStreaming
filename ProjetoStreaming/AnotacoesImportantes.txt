@@ -9,11 +9,6 @@
 		Todo cliente pode ter um contrato (mas n pode ter mais de um) e todo contrato só pode ter um cliente, não tem sentido esses valores serem diferentes.
 
 
-6. 
-	6.1 - Texto para decidir entre genero ou classificacao: 
-		0 - genero
-		1 - classificao
-
 7. 
 	7.1 - Adicionar a mensagem de erro para caso não exista nenhum contrato cadastrado no sistema.
 
