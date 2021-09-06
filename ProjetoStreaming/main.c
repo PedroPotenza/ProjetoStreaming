@@ -198,6 +198,7 @@ int main(void){
                         break;
                     case 4: 
                         printf("ERRO: Cliente nao possui contrato\n"); // printf("ERRO: Contrato nao existente\n");
+                        //nao roda nunca //retirar no enunciado
                         break;
                     case 5: 
                         printf("ERRO: Nenhum contrato cadastrado no sistema\n");
@@ -216,7 +217,7 @@ int main(void){
                         printf("ERRO: Cliente nao cadastrado\n");
                         break;
                     case 2:
-                        printf("ERRO: Nenhum filme assistido\n");
+                        printf("ERRO: Cliente nao possui contrato\n");
                         break;
                     case 3: 
                         printf("ERRO: Nenhum cliente cadastrado no sistema\n");
@@ -289,15 +290,11 @@ int main(void){
             }
 
             case 0:{
-                printf("c_cliente: %d\n", c_cliente);
-                printf("c_filme: %d\n", c_filme);
-                printf("c_filme_cliente: %d\n", c_filme_cliente[0]);
-
                 printf("Finalizando programa...");
                 break;
             }
 
-            default: printf("ERRO: opcao invalida\n");
+            default: printf("ERRO: Opcao invalida\n");
         }
 
     }while(opcao != 0);

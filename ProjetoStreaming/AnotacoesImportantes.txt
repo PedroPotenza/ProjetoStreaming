@@ -10,10 +10,6 @@
 	5.2 - max_contratos = max_clientes
 		Todo cliente pode ter um contrato (mas n pode ter mais de um) e todo contrato só pode ter um cliente, não tem sentido esses valores serem diferentes.
 
-
-7. 
-	7.1 - Adicionar a mensagem de erro para caso não exista nenhum contrato cadastrado no sistema.
-
 8.
 	8.2 - Arrumar o do-while faltando  
 

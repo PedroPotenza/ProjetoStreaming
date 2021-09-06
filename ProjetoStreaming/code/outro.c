@@ -295,7 +295,7 @@ int geraFatura(int max_cliente, int max_flime, HISTORICO mat_historico[max_clien
     int escolha, x=0;
 
     printf("\nFatura especifica ou de todos os clientes?[0/1]:");
-    scanf("%d",&escolha);
+    escolha = validaEscopo(0, 1, "ERRO: Escolha invalida\n");
 
     if(escolha == 0){
 
@@ -377,7 +377,7 @@ int faturaCliente(int cpf, int max_cliente, int max_flime, HISTORICO mat_histori
 
         int pos_contrato = verificaContrato(cpf,vet_contrato,c_contrato);
 
-        if(pos_contrato == 0) return 2; // Não existe contrato
+        if(pos_contrato == 0) return 2; // Cliente nao possui contrato
 
         pos_contrato--;
 
