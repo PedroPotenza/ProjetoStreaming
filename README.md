@@ -276,7 +276,7 @@ Em caso de sucesso (todos os clientes)
 printf("CPF: %d\n", cpf);
 printf("Nome: %s\n", nome); //nome do cliente
 printf("Valor devido: %.2f\n", x);
-printf("Mes vigente apos a fatura: %d", x);
+printf("Mes vigente apos a fatura: %d\n", x);
 ```
 ***
 #### 9 - Listar Dados do Cliente
