@@ -31,6 +31,8 @@ typedef enum PAGAMENTO_TIPO{
 
 } PAGAMENTO_TIPO;
 
+// STRUCTS ------------------------------------------------
+
 typedef struct DATA{
 
     int dia;
@@ -125,7 +127,6 @@ typedef struct HISTORICO{
 } HISTORICO;
 
 // STRUCTS ------------------------------------------------
-
 int verificaCliente(int cpf_local, CLIENTE* vet_cliente, int c_cliente);
 int verificaContrato(int cpf_local, CONTRATO* vet_contrato, int c_contrato);
 int verificaFilme(int codigo, FILME* vet_filme, int c_filme);
@@ -133,7 +134,7 @@ int verificaFilme(int codigo, FILME* vet_filme, int c_filme);
 int existeCliente(CLIENTE* vet_cliente, int c_cliente);
 
 int validaEscopo(int min, int max, char erro[]);
-int validaCpf( CLIENTE* vet_cliente, int c_cliente, char erro[]);
+//int validaCpf( CLIENTE* vet_cliente, int c_cliente, char erro[]);
 
 int clienteAssistiu(CLIENTE* vet_cliente, int c_cliente, int cpf_local, FILME* vet_filme, int c_filme, int codigo, int max_cliente, int max_filme, HISTORICO mat_historico[max_cliente][max_filme], int *c_filme_cliente);
 
@@ -166,7 +167,6 @@ int geraFatura(int max_cliente, int max_flime, HISTORICO mat_historico[max_clien
 int faturaTodosClientes(int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], CONTRATO *vet_contrato, int c_contrato, CLIENTE *vet_cliente, int c_cliente, int* mes_atual, PLANO_BASICO plano_basico, PLANO_PREMIUM plano_premium, int* c_filme_cliente);
 int faturaCliente(int cpf, int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], CONTRATO *vet_contrato, int c_contrato, CLIENTE *vet_cliente, int c_cliente, FILME* vet_filme, int c_filme, int mes_atual, PLANO_BASICO plano_basico, PLANO_PREMIUM plano_premium, int* c_filme_cliente);
 
-// FUNÇÕES
 
 
 int cadastroCliente(CLIENTE* vet_cliente, int* c_cliente, int max_cliente, int* c_filme_cliente){
@@ -331,13 +331,14 @@ int cadastroContrato(CONTRATO* vet_contrato, int* c_contratos, int max_contratos
 
 }
 
+
 int listaGenero(FILME* vet_filme, int c_filme, int escolha){
 
     int valida = 0;
 
     for(int c=0; c<c_filme;c++){
 
-        if(vet_filme[c].genero == (GENERO)escolha){
+        if(vet_filme[c].genero == escolha){
 
             valida = 1;
 
@@ -364,7 +365,7 @@ int listaClassificacao(FILME* vet_filme, int c_filme, int escolha){
 
     for(int c=0; c<c_filme;c++){
 
-        if(vet_filme[c].classificacao == (CLASSIFICACAO)escolha){
+        if(vet_filme[c].classificacao == escolha){
 
             valida = 1;
 
@@ -426,6 +427,9 @@ int imprimeHistorico(int max_cliente, int max_flime, HISTORICO mat_historico[max
 
     int cpf;
 
+    if(c_cliente == 0)
+        return 3;
+
     //printf("\nCPF: ");
     scanf("%d",&cpf);
 
@@ -459,7 +463,7 @@ int imprimeHistorico(int max_cliente, int max_flime, HISTORICO mat_historico[max
         
         // isso aqui provavelmente pode remover depois
         printf("Genero: %s\n", retornaGenero(vet_filme[posicao_filme].genero));
-        printf("Classificacao: %s\n", retornaClassificacao(vet_filme[posicao_filme].genero));
+        printf("Classificacao: %s\n", retornaClassificacao(vet_filme[posicao_filme].classificacao));
         //
 
         printf("Data do carregamento: %d/%d\n\n",mat_historico[posicao_cliente][c].data.dia, mat_historico[posicao_cliente][c].data.mes);
@@ -506,6 +510,128 @@ void imprimeClienteExcedente(CLIENTE* vet_cliente, int c_cliente, FILME* vet_fil
     }
 
 }
+
+
+
+int verificaCliente(int cpf_local, CLIENTE* vet_cliente, int c_cliente){
+
+    int i;
+
+    for(i=0; i<c_cliente; i++){
+        if(cpf_local == vet_cliente[i].cpf){
+            return i+1; //se existir retorna true 
+        }
+    }
+
+    return 0; //se n existir retorna false
+}
+
+int verificaContrato(int cpf_local, CONTRATO* vet_contrato, int c_contrato){
+
+    int i;
+
+    for(i=0; i<c_contrato; i++){
+        if(cpf_local == vet_contrato[i].cpf){
+            return i+1; //se existir retorna true 
+        }
+    }
+
+    return 0; //se n existir retorna false
+}
+
+int verificaFilme(int codigo, FILME* vet_filme, int c_filme){
+
+    int i;
+
+    for(i=0; i<c_filme; i++){
+        if(codigo == vet_filme[i].codigo){
+            return i+1; //se existir retorna true 
+        }
+    }
+
+    return 0; //se n existir retorna false
+}
+
+// int validaCpf(CLIENTE* vet_cliente, int c_cliente, char erro[]){
+
+//     int cpf;
+
+//     do{
+
+//         scanf("%d",&cpf);
+        
+//         if(!verificaCliente(cpf,vet_cliente,c_cliente)) break;
+        
+//         else printf("%s",erro);
+
+//     }while(1);
+
+//     return cpf;
+
+// }
+
+int validaEscopo(int min, int max, char erro[]){
+
+    int valor;
+
+    do{
+
+        scanf("%d", &valor);
+
+        if(valor >= min && valor <= max) break;
+        
+        else printf("%s",erro);
+
+    }while(1);
+
+    return valor;
+
+}
+
+/*
+verifica se existe algum cliente cadastrado no sistema
+usado no cadastrar contrato, listar cliente, etc ... 
+eh usado bastante pra evitar loop infinito de erro por causa dos do whiles
+*/
+int existeCliente(CLIENTE* vet_cliente, int c_cliente){
+
+    if(c_cliente==0){
+        return 1; //retorna 1 se n tiver nenhum cliente cadastrado
+    }
+    return 0; //retorna 0 se existir algum cliente
+} 
+
+
+// retorna 1 se o cliente assistiu a um filme e 0 se não assistiu, -1 para erro
+int clienteAssistiu(CLIENTE* vet_cliente, int c_cliente, int cpf_local, FILME* vet_filme, int c_filme, int codigo, int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], int *c_filme_cliente){
+
+    int pos_cli = verificaCliente(cpf_local,vet_cliente,c_cliente);
+
+    if(pos_cli){
+
+        int pos_film = verificaFilme(codigo,vet_filme,c_filme);
+
+        if(pos_film){
+
+            pos_cli--;
+            pos_film--;
+
+            for(int c=0;c<c_filme_cliente[pos_cli];c++){
+
+                if(mat_historico[pos_cli][c].codigo == codigo){
+                    return 1;
+                }
+
+            }
+
+        }else return -1;
+
+    }else return -1;
+
+    return 0;
+
+}
+
 
 // retorna o nome do genero com o valor do enum
 
@@ -573,13 +699,16 @@ int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cli
     int cpf, codigo, genero_ou_classificacao, escolha;
     int posicao_cliente, posicao_contrato;
 
+        if(c_cliente==0)
+            return 8;
+
         //printf("\nCPF: ");
         scanf("%d", &cpf);
 
         posicao_cliente = verificaCliente(cpf, vet_cliente, c_cliente);
 
         if (posicao_cliente == 0)
-            printf("ERRO: Cliente nao cadastrado\n");
+            return 2;
 
         posicao_cliente--;
 
@@ -603,7 +732,9 @@ int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cli
                 //printf("Genero ou classificacao[0/1]: ");
                 genero_ou_classificacao = validaEscopo(0, 1, "ERRO: Escolha invalida\n");
 
-                //printf("Escolha:");
+                // if(genero_ou_classificacao == 0){
+                //     printf("Genero: ");
+                // } else { printf("Classificao: ");}
 
                 escolha = validaEscopo(0, 5, "ERRO: Escolha invalida\n");
 
@@ -653,8 +784,7 @@ int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cli
 
                             if (escolha == 0)
                             {
-
-                                return 6; // filme não carregado;
+                                return 7; // filme não carregado;
                             }
                         }
                     }
@@ -670,8 +800,9 @@ int carregaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_cli
             }
         }
         else
-        {            
-            return 6; // printf("ERRO: Cliente nao ativo\n"); 
+        {
+
+            return 6;
         }
 
 }
@@ -683,10 +814,10 @@ int cancelarContrato(CONTRATO *vet_contrato, int c_contratos, CLIENTE *vet_clien
     int dia_local; 
     //float valor;
 
-    //if (c_contratos == 0)
-    //{
-        //return 2; //não existe contratos
-    //}
+    if (c_contratos == 0)
+    {
+        return 5; //não existe contratos
+    }
 
     //printf("\nCPF cadastrado no Contrato: ");
     scanf("%d", &cpf);
@@ -791,9 +922,12 @@ int geraFatura(int max_cliente, int max_flime, HISTORICO mat_historico[max_clien
     int escolha, x=0;
 
     //printf("\nFatura especifica ou de todos os clientes?[0/1]:");
-    scanf("%d",&escolha);
+    escolha = validaEscopo(0, 1, "ERRO: Escolha invalida\n");
 
     if(escolha == 0){
+
+        if(c_cliente==0)
+        return 3;
 
         int cpf;
         //printf("\nCPF: ");
@@ -801,7 +935,7 @@ int geraFatura(int max_cliente, int max_flime, HISTORICO mat_historico[max_clien
 
         x = faturaCliente(cpf,max_cliente,max_flime,mat_historico,vet_contrato,c_contrato,vet_cliente,c_cliente,vet_filme,c_filme,*mes_atual,plano_basico,plano_premium,c_filme_cliente);
 
-    }else if(escolha == 1){
+    }else{
 
         x = faturaTodosClientes(max_cliente,max_flime,mat_historico,vet_contrato,c_contrato,vet_cliente,c_cliente,mes_atual,plano_basico,plano_premium,c_filme_cliente);
 
@@ -845,7 +979,7 @@ int faturaTodosClientes(int max_cliente, int max_flime, HISTORICO mat_historico[
         //vet_cliente[c].estado = inativo;
     }
 
-
+    printf("Mes vigente apos a fatura: %d\n", (*mes_atual));
     return 0;
 
 }
@@ -870,7 +1004,7 @@ int faturaCliente(int cpf, int max_cliente, int max_flime, HISTORICO mat_histori
 
         int pos_contrato = verificaContrato(cpf,vet_contrato,c_contrato);
 
-        if(pos_contrato == 0) return 2; // Não existe contrato
+        if(pos_contrato == 0) return 2; // Cliente nao possui contrato
 
         pos_contrato--;
 
@@ -889,6 +1023,9 @@ int frequenciaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_
 
     int codigo;
     float contador=0, total=0;
+
+    if(c_filme==0)
+        return 3;
 
     //printf("\nCodigo: ");
     scanf("%d",&codigo);
@@ -915,7 +1052,7 @@ int frequenciaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_
 
         }
 
-        printf("Frequencia: %.2f%%",100.0*(contador/total));
+        printf("Frequencia: %.2f%%\n",100.0*(contador/total));
 
     }else{
 
@@ -930,6 +1067,9 @@ int frequenciaFilme(int max_cliente, int max_flime, HISTORICO mat_historico[max_
 int recomendaFilme(CLIENTE* vet_cliente, int c_cliente,int max_cliente, int max_filme, HISTORICO mat_historico[max_cliente][max_filme], int *c_filme_cliente, FILME* vet_filme, int c_filme){
 
     int cpf, contador_genero[6] = {0};
+
+    if(c_cliente==0)
+        return 5;
 
     //printf("\nCPF: ");
     scanf("%d",&cpf);
@@ -999,7 +1139,7 @@ int recomendaFilme(CLIENTE* vet_cliente, int c_cliente,int max_cliente, int max_
                     for(int d=0;d<c_filme;d++){
                         //printf("%d ",c_filme);
 
-                        if(vet_filme[d].genero == (GENERO)empates[c]){
+                        if(vet_filme[d].genero == empates[c]){
 
                             //printf("%d || %d ",vet_filme[d].genero, empates[c]);
 
@@ -1047,124 +1187,6 @@ int recomendaFilme(CLIENTE* vet_cliente, int c_cliente,int max_cliente, int max_
     return 0;
 }
 
-int verificaCliente(int cpf_local, CLIENTE* vet_cliente, int c_cliente){
-
-    int i;
-
-    for(i=0; i<c_cliente; i++){
-        if(cpf_local == vet_cliente[i].cpf){
-            return i+1; //se existir retorna true 
-        }
-    }
-
-    return 0; //se n existir retorna false
-}
-
-int verificaContrato(int cpf_local, CONTRATO* vet_contrato, int c_contrato){
-
-    int i;
-
-    for(i=0; i<c_contrato; i++){
-        if(cpf_local == vet_contrato[i].cpf){
-            return i+1; //se existir retorna true 
-        }
-    }
-
-    return 0; //se n existir retorna false
-}
-
-int verificaFilme(int codigo, FILME* vet_filme, int c_filme){
-
-    int i;
-
-    for(i=0; i<c_filme; i++){
-        if(codigo == vet_filme[i].codigo){
-            return i+1; //se existir retorna true 
-        }
-    }
-
-    return 0; //se n existir retorna false
-}
-
-int validaCpf(CLIENTE* vet_cliente, int c_cliente, char erro[]){
-
-    int cpf;
-
-    do{
-
-        scanf("%d",&cpf);
-        
-        if(!verificaCliente(cpf,vet_cliente,c_cliente)) break;
-        
-        else printf("%s",erro);
-
-    }while(1);
-
-    return cpf;
-
-}
-
-int validaEscopo(int min, int max, char erro[]){
-
-    int valor;
-
-    do{
-
-        scanf("%d", &valor);
-
-        if(valor >= min && valor <= max) break;
-        
-        else printf("%s",erro);
-
-    }while(1);
-
-    return valor;
-
-}
-
-/*
-verifica se existe algum cliente cadastrado no sistema
-usado no cadastrar contrato, listar cliente, etc ... 
-eh usado bastante pra evitar loop infinito de erro por causa dos do whiles
-*/
-int existeCliente(CLIENTE* vet_cliente, int c_cliente){
-
-    if(c_cliente==0){
-        return 1; //retorna 1 se n tiver nenhum cliente cadastrado
-    }
-    return 0; //retorna 0 se existir algum cliente
-} 
-
-
-// retorna 1 se o cliente assistiu a um filme e 0 se não assistiu, -1 para erro
-int clienteAssistiu(CLIENTE* vet_cliente, int c_cliente, int cpf_local, FILME* vet_filme, int c_filme, int codigo, int max_cliente, int max_flime, HISTORICO mat_historico[max_cliente][max_flime], int *c_filme_cliente){
-
-    int pos_cli = verificaCliente(cpf_local,vet_cliente,c_cliente);
-
-    if(pos_cli){
-
-        int pos_film = verificaFilme(codigo,vet_filme,c_filme);
-
-        if(pos_film){
-
-            pos_cli--;
-            pos_film--;
-
-            for(int c=0;c<c_filme_cliente[pos_cli];c++){
-
-                if(mat_historico[pos_cli][c].codigo == codigo){
-                    return 1;
-                }
-
-            }
-
-        }else return -1;
-
-    }else return -1;
-
-    return 0;
-
-}
 // comando para compilar: gcc main.c code/*.c -o main
 
 /*anotações
@@ -1286,7 +1308,7 @@ int main(void){
                         printf("ERRO: Numero maximo de contratos no sistema atingido\n");
                         break;
                     case 2: 
-                        printf("ERRO: Nenhum cliente cadastrado no sistema");
+                        printf("ERRO: Nenhum cliente cadastrado no sistema\n");
                         break;
                     case 3:
                         printf("ERRO: Cliente nao cadastrado\n");
@@ -1326,6 +1348,12 @@ int main(void){
                     case 6:
                         printf("ERRO: Cliente nao ativo\n");
                         break;
+                    case 7:
+                        printf("ERRO: Taxa adicional negada\n");
+                        break;
+                    case 8: 
+                        printf("ERRO: Nenhum cliente cadastrado no sistema\n");
+                        break;   
                 }
 
                 break;
@@ -1340,16 +1368,20 @@ int main(void){
                         printf("Cancelamento feito com sucesso\n");
                         break;
                     case 1:
-                        printf("ERRO: Data de cancelamente anteiror a cata de contratacao\n");
+                        printf("ERRO: Data de cancelamente anteiror a data de contratacao\n");
                         break;
                     case 2: 
-                        printf("ERRO: Cliente nao cadastrado\n");//printf("ERRO: Nenhum contrato cadastrado no sistema\n");
+                        printf("ERRO: Cliente nao cadastrado\n");
                         break;
                     case 3: 
                         printf("ERRO: Cliente inativo\n");
                         break;
                     case 4: 
                         printf("ERRO: Cliente nao possui contrato\n"); // printf("ERRO: Contrato nao existente\n");
+                        //nao roda nunca //retirar no enunciado
+                        break;
+                    case 5: 
+                        printf("ERRO: Nenhum contrato cadastrado no sistema\n");
                         break;
                 }
 
@@ -1365,7 +1397,10 @@ int main(void){
                         printf("ERRO: Cliente nao cadastrado\n");
                         break;
                     case 2:
-                        printf("ERRO: Nenhum filme assistido\n");
+                        printf("ERRO: Cliente nao possui contrato\n");
+                        break;
+                    case 3: 
+                        printf("ERRO: Nenhum cliente cadastrado no sistema\n");
                         break;
 
                 }
@@ -1389,6 +1424,9 @@ int main(void){
                     case 2:
                         printf("ERRO: Nenhum filme assistido\n");
                         break;
+                    case 3: 
+                        printf("ERRO: Nenhum cliente cadastrado no sistema\n");
+                        break;
 
                 }
                 
@@ -1404,6 +1442,7 @@ int main(void){
                 x = frequenciaFilme(max_cliente,3*max_filme,mat_historico,c_filme_cliente,vet_filme,c_filme,c_cliente);
                 if(x == 1) printf("ERRO: Codigo invalido\n");
                 if(x == 2) printf("ERRO: Nenhum filme assistido\n");
+                if(x == 3) printf("ERRO: Nenhum filme cadastrado no sistema\n");
                 break;
             }
 
@@ -1418,25 +1457,24 @@ int main(void){
                         printf("ERRO: Cliente nao ativo\n");
                         break;
                     case 3:
-                        printf("ERRO: Todos os filmes do genero foram assistidos\n");
+                        printf("ERRO: Todos os filmes do(s) genero(s) foram assistidos\n");
                         break;
                     case 4:
                         printf("ERRO: Nenhum filme assistido\n");
+                    case 5: 
+                        printf("ERRO: Nenhum cliente cadastrado no sistema\n");
+                        break;
 
                 }
                 break;
             }
 
             case 0:{
-                // printf("c_cliente: %d\n", c_cliente);
-                // printf("c_filme: %d\n", c_filme);
-                // printf("c_filme_cliente: %d\n", c_filme_cliente[0]);
-
                 //printf("Finalizando programa...");
                 break;
             }
 
-            default: printf("ERRO: opcao invalida\n");
+            default: printf("ERRO: Opcao invalida\n");
         }
 
     }while(opcao != 0);
