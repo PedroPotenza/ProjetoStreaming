@@ -346,7 +346,7 @@ printf("ERRO: Nenhum filme assistido\n");
 ```
 Em caso de sucesso
 ```c
-printf("Frequencia: %.2f%%",x);
+printf("Frequencia: %.2f%%\n",x);
 ```
 ***
 #### 13 - Recomendar Filme
