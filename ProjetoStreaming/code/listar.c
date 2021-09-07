@@ -138,7 +138,7 @@ int imprimeHistorico(int max_cliente, int max_flime, HISTORICO mat_historico[max
         
         // isso aqui provavelmente pode remover depois
         printf("Genero: %s\n", retornaGenero(vet_filme[posicao_filme].genero));
-        printf("Classificacao: %s\n", retornaClassificacao(vet_filme[posicao_filme].genero));
+        printf("Classificacao: %s\n", retornaClassificacao(vet_filme[posicao_filme].classificacao));
         //
 
         printf("Data do carregamento: %d/%d\n\n",mat_historico[posicao_cliente][c].data.dia, mat_historico[posicao_cliente][c].data.mes);
