@@ -379,6 +379,18 @@ printf("Genero: %s\n", genero);//escrito por extenso (exemplo: aventura, comedia
 printf("Classificacao: %s\n", classificacao); //escrito da seguinte forma: livre, +10, +12, +14, +16 ou + 18  
 ```
 ***
+#### 0 - Sair
+Finaliza o programa
+```c
+printf("Finalizando programa...");
+```
+***
+#### Qualquer outro número
+Mensagem de erro
+```c
+printf("ERRO: Opcao invalida\n");
+```
+***
 #### Dicas
 - Não deixe para fazer o projeto em um único dia, é literalmente impossível 
 - Planeje o desenvolvimento do seu projeto, divida ele em vários dias para não se sobrecarregar
