@@ -1010,7 +1010,7 @@ int faturaCliente(int cpf, int max_cliente, int max_flime, HISTORICO mat_histori
 
         printf("Valor devido: %.2f\n",valorDevido(plano_basico,plano_premium/*,vet_contrato[pos_contrato].data_de_contratacao,vet_contrato[pos_contrato].data_de_cancelamento*/,c_filme_cliente[pos_cliente],vet_contrato[pos_contrato].plano_tipo));
 
-        c_filme_cliente[pos_cliente] = 0;
+        //c_filme_cliente[pos_cliente] = 0;
         //vet_cliente[pos_cliente].estado = inativo;
 
     }else return 1; // Cliente não cadastrado
