@@ -1153,7 +1153,7 @@ int recomendaFilme(CLIENTE* vet_cliente, int c_cliente,int max_cliente, int max_
                                 
                                 // isso aqui provavelmente pode remover depois
                                 printf("Genero: %s\n", retornaGenero(vet_filme[d].genero));
-                                printf("Classificacao: %s\n", retornaClassificacao(vet_filme[d].genero));
+                                printf("Classificacao: %s\n", retornaClassificacao(vet_filme[d].classificacao));
                                 //
 
                             }
@@ -1461,6 +1461,7 @@ int main(void){
                         break;
                     case 4:
                         printf("ERRO: Nenhum filme assistido\n");
+                        break;
                     case 5: 
                         printf("ERRO: Nenhum cliente cadastrado no sistema\n");
                         break;
@@ -1470,11 +1471,14 @@ int main(void){
             }
 
             case 0:{
-                //printf("Finalizando programa...");
+                printf("Finalizando programa...");
                 break;
             }
 
-            default: printf("ERRO: Opcao invalida\n");
+            default: {
+                printf("ERRO: Opcao invalida\n");
+                break;
+            }
         }
 
     }while(opcao != 0);

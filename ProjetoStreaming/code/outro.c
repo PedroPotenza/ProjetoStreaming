@@ -526,7 +526,7 @@ int recomendaFilme(CLIENTE* vet_cliente, int c_cliente,int max_cliente, int max_
                                 
                                 // isso aqui provavelmente pode remover depois
                                 printf("Genero: %s\n", retornaGenero(vet_filme[d].genero));
-                                printf("Classificacao: %s\n", retornaClassificacao(vet_filme[d].genero));
+                                printf("Classificacao: %s\n", retornaClassificacao(vet_filme[d].classificacao));
                                 //
 
                             }
