@@ -407,7 +407,7 @@ void imprimeCliente(CLIENTE *vet_cliente, int c_cliente)
         return;
     }
 
-    if (existe)
+    if (existe == 1)
     {
         for (i = 0; i < c_cliente; i++)
         {
